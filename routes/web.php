@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MoodController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/moods', [MoodController::class, 'index'])->name('moods.index');
+Route::post('/moods', [MoodController::class, 'store'])->name('moods.store');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
