@@ -42,6 +42,15 @@
             </div>
         </div>
     </form>
+    <a href="{{ route('weekly.report') }}" class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6 inline-block text-indigo-600 hover:underline">
+        View Weekly Mood Report
+    </a>
+    <a href="{{ route('relief') }}" 
+   class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6 inline-block text-indigo-600 hover:underline">
+    Need Instant Relief?
+</a>
+
+
 
     <!-- Mood History -->
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">

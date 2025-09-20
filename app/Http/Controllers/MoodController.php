@@ -7,13 +7,11 @@ use App\Models\Mood;
 
 class MoodController extends Controller
 {
-    // Method to show the mood tracking form
     public function index()
     {
         return view('moods.index'); // Assuming you have a view for the form
     }
-    
-    // Method to store the mood data
+
     public function store(Request $request)
     {
         $request->validate([
@@ -29,4 +27,16 @@ class MoodController extends Controller
 
         return redirect()->back()->with('success', 'Mood saved successfully!');
     }
+    public function weeklyReport()
+    {
+        $WeeklyMoods = Mood::where('user_id', auth()->id())
+                     ->where('created_at', '>=', now()->subWeek())
+                     ->get();
+
+        return view('moods.weekly_report', compact('WeeklyMoods'));
+    }  
+    public function relief()
+    {
+        return view('moods.relief'); 
+    } 
 }
