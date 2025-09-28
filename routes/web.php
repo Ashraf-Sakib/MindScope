@@ -1,27 +1,23 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MoodController;
-
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 Route::get('/', function () {
     return view('welcome');
-});
-
-
-Route::get('/moods', [MoodController::class, 'index'])->name('moods.index');
-Route::post('/moods', [MoodController::class, 'store'])->name('moods.store');
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/weekly-report', [MoodController::class, 'weeklyReport'])->middleware(['auth', 'verified'])->name('weekly.report');
-Route::get('/relief', [MoodController::class, 'relief'])->middleware(['auth', 'verified'])->name('relief');
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+})->name('home');
 
 require __DIR__.'/auth.php';
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [MoodController::class, 'dashboard'])->name('dashboard');
+    Route::get('/moods', [MoodController::class, 'index'])->name('moods.index');
+    Route::post('/moods', [MoodController::class, 'store'])->name('moods.store');
+    Route::delete('/moods/{mood}', [MoodController::class, 'destroy'])->name('moods.destroy');
+     Route::get('/profile/edit', function () {
+        return view('profile.edit');
+    })->name('profile.edit');
+    Route::get('/weekly-report', [MoodController::class, 'weeklyReport'])->name('weekly.report');
+    Route::get('/relief', [MoodController::class, 'relief'])->name('relief');
+});
+

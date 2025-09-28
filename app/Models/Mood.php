@@ -15,11 +15,6 @@ class Mood extends Model
         'mood',
         'note',
     ];
-
-    // If your table is named 'modes', uncomment the line below
-    // protected $table = 'modes';
-
-    // Relationship: a Mood belongs to a User
     public function user()
     {
         return $this->belongsTo(User::class);
