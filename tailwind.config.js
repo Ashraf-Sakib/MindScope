@@ -1,8 +1,10 @@
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
+    darkMode: 'class',
     content: [
-        './resources/**/*.blade.php',
-        './resources/**/*.js',
-        './resources/**/*.vue',
+        "./resources/**/*.blade.php",
+        "./resources/**/*.js",
+        "./resources/**/*.vue",
     ],
     theme: {
         extend: {
@@ -37,8 +39,10 @@ module.exports = {
             }
         },
     },
-     plugins: [require("daisyui")],
-  daisyui: {
-    themes: ["light", "dark"], 
-  },
+    plugins: [
+        require("daisyui"),
+    ],
+    daisyui: {
+        themes: ["light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter","aqua"],
+    },
 }
