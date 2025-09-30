@@ -1,139 +1,130 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 shadow-sm">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <!-- Left Side: Logo & Navigation Links -->
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" class="flex items-center">
-                        <span class="text-2xl font-bold text-lavender-600 dark:text-lavender-400">
-                            🧠 MindScope
-                        </span>
-                    </a>
-                </div>
-
-                <!-- Navigation Links (Desktop) -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
+<div class="navbar bg-base-100 shadow-lg">
+    <!-- Mobile Hamburger (Left Side on Mobile) -->
+    <div class="navbar-start">
+        <!-- Mobile Dropdown -->
+        <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+                </svg>
             </div>
-
-            <!-- Right Side: Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6 gap-4">
-                <!-- Dark Mode Toggle -->
-                <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
-                    <span id="theme-icon-nav" class="text-xl">🌙</span>
-                </button>
-
-                <!-- User Dropdown -->
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name ?? 'Guest' }}</div>
-                            <div class="ml-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
-
-            <!-- Hamburger Menu (Mobile) -->
-            <div class="-mr-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="{{ route('profile.edit') }}">Profile</a></li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="w-full text-left">Logout</button>
+                    </form>
+                </li>
+            </ul>
         </div>
+        
+        <!-- Logo -->
+        <a href="{{ route('dashboard') }}" class="btn btn-ghost text-xl">
+            <span class="font-bold">MindScope</span>
+        </a>
     </div>
 
-    <!-- Responsive Navigation Menu (Mobile) -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            
+    <!-- Desktop Navigation Links (Center) -->
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1">
+            <li>
+                <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#" class="{{ request()->routeIs('index') ? 'active' : '' }}">
+                    Home
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-end gap-2">
+        <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                </svg>
+            </div>
+            <div tabindex="0" class="dropdown-content z-[1] card card-compact w-64 p-4 shadow bg-base-100 rounded-box mt-3">
+                <div class="card-body">
+                    <h3 class="font-bold text-lg">Choose Theme</h3>
+                    <div class="form-control">
+                        <select id="theme-selector" class="select select-bordered w-full">
+                            <option value="light">☀️ Light</option>
+                            <option value="dark">🌙 Dark</option>
+                            <option value="valentine">💖 Valentine</option>
+                            <option value="cupcake">🧁 Cupcake</option>
+                            <option value="bumblebee">🐝 Bumblebee</option>
+                            <option value="emerald">✨ Emerald</option>
+                            <option value="corporate">🏢 Corporate</option>
+                            <option value="synthwave">🌆 Synthwave</option>
+                            <option value="retro">👾 Retro</option>
+                            <option value="cyberpunk">🤖 Cyberpunk</option>
+                            <option value="halloween">🎃 Halloween</option>
+                            <option value="garden">🌻 Garden</option>
+                            <option value="forest">🌲 Forest</option>
+                            <option value="aqua">💧 Aqua</option>
+                            <option value="lofi">🎵 Lofi</option>
+                            <option value="pastel">🎨 Pastel</option>
+                            <option value="fantasy">🧚 Fantasy</option>
+                            <option value="wireframe">📐 Wireframe</option>
+                            <option value="black">⚫ Black</option>
+                            <option value="luxury">💎 Luxury</option>
+                            <option value="dracula">🧛 Dracula</option>
+                            <option value="cmyk">🖨️ CMYK</option>
+                            <option value="autumn">🍂 Autumn</option>
+                            <option value="business">💼 Business</option>
+                            <option value="acid">🧪 Acid</option>
+                            <option value="lemonade">🍋 Lemonade</option>
+                            <option value="night">🌃 Night</option>
+                            <option value="coffee">☕ Coffee</option>
+                            <option value="winter">❄️ Winter</option>
+                            <option value="dim">🔅 Dim</option>
+                            <option value="nord">🗻 Nord</option>
+                            <option value="sunset">🌅 Sunset</option>
+                        </select>
+                    </div>
+                    <p class="text-xs opacity-70 mt-2">Theme will be saved automatically</p>
+                </div>
+            </div>
         </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200">
-                    {{ Auth::user()->name ?? 'Guest' }}
-                </div>
-                <div class="font-medium text-sm text-gray-500">
-                    {{ Auth::user()->email ?? 'Not logged in' }}
+        <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
+                <div class="bg-primary text-primary-content rounded-full w-10">
+                    <span class="text-xl">{{ substr(Auth::user()->name ?? 'G', 0, 1) }}</span>
                 </div>
             </div>
-
-            <div class="mt-3 space-y-1">
-                <!-- Dark Mode Toggle (Mobile) -->
-                <x-responsive-nav-link href="#" @click.prevent="toggleTheme()">
-                    <span id="theme-text-mobile">{{ __('Toggle Dark Mode') }}</span>
-                </x-responsive-nav-link>
-
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
+            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                <li class="menu-title">
+                    <span class="text-base">{{ Auth::user()->name ?? 'Guest' }}</span>
+                    <span class="text-xs opacity-60">{{ Auth::user()->email ?? 'Not logged in' }}</span>
+                </li>
+                <li><a href="{{ route('profile.edit') }}">Profile Settings</a></li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="w-full text-left">Logout</button>
+                    </form>
+                </li>
+            </ul>
         </div>
     </div>
+</div>
 
-    <script>
-        // Update theme icon in navigation
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            const icon = document.getElementById('theme-icon-nav');
-            if (icon) {
-                icon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-            }
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeSelector = document.getElementById('theme-selector');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeSelector.value = savedTheme;
+        themeSelector.addEventListener('change', function() {
+            const selectedTheme = this.value;
+            document.documentElement.setAttribute('data-theme', selectedTheme);
+            localStorage.setItem('theme', selectedTheme);
         });
-
-        // Update icon after theme toggle
-        const originalToggle = window.toggleTheme;
-        window.toggleTheme = function() {
-            originalToggle?.();
-            const html = document.documentElement;
-            const theme = html.classList.contains('dark') ? 'dark' : 'light';
-            const icon = document.getElementById('theme-icon-nav');
-            if (icon) {
-                icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-            }
-        };
-    </script>
-</nav>
+    });
+</script>

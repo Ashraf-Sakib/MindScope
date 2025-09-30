@@ -1,105 +1,129 @@
 <x-app-layout>
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
-      <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-        <div class="p-6 text-gray-900 dark:text-gray-100">
-          <h3 class="text-lg font-medium mb-2">Welcome section</h3>
-          <p class="text-gray-600 dark:text-gray-400">
+      <!-- Welcome Section -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title text-lg">Welcome section</h3>
+          <p class="text-base-content/70">
             Welcome back, {{ Auth::user()->name }}! ✨<br>
             Track your mood, reflect on your week, and chat with Wizard Cat for motivation 🐱🪄
           </p>
         </div>
       </div>
+
+      <!-- Feature Cards Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <a href="{{ route('moods.index') }}" class="block">
-          <div class="bg-red-100 border-2 border-red-300 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
-            <div class="text-4xl mb-4">😊</div>
-            <h3 class="text-lg font-semibold text-red-700">mood entry</h3>
-            <p class="text-sm text-red-600 mt-2">Log your feelings and add notes</p>
+          <div class="card bg-base-100 border-2 border-error hover:shadow-2xl transition-all">
+            <div class="card-body items-center text-center">
+              <div class="mb-4">
+                <img src="{{ asset('images/mood entry.png') }}" alt="Mood Entry" class="w-12 h-12"/>
+              </div>
+              <h3 class="card-title text-error">Mood Entry</h3>
+              <p class="text-error/70">Log your feelings and add notes</p>
+            </div>
           </div>
         </a>
+
         <a href="{{ route('relief') }}" class="block">
-          <div class="bg-yellow-100 border-2 border-yellow-300 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
-            <div class="text-4xl mb-4">🌿</div>
-            <h3 class="text-lg font-semibold text-yellow-700">instant relief</h3>
-            <p class="text-sm text-yellow-600 mt-2">Try breathing exercises or meditation</p>
+          <div class="card bg-base-100 border-2 border-warning hover:shadow-2xl transition-all">
+            <div class="card-body items-center text-center">
+              <div class="mb-4">
+                <img src="{{ asset('images/instant relief.png') }}" alt="Instant Relief" class="w-12 h-12"/>
+              </div>
+              <h3 class="card-title text-warning">Instant Relief</h3>
+              <p class="text-warning/70">Try breathing exercises or meditation</p>
+            </div>
           </div>
         </a>
 
         <a href="{{ route('weekly.report') }}" class="block">
-          <div class="bg-blue-100 border-2 border-blue-300 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
-            <div class="text-4xl mb-4">📊</div>
-            <h3 class="text-lg font-semibold text-blue-700">weekly report</h3>
-            <p class="text-sm text-blue-600 mt-2">See how your week has been</p>
+          <div class="card bg-base-100 border-2 border-info hover:shadow-2xl transition-all">
+            <div class="card-body items-center text-center">
+              <div class="mb-4">
+                <img src="{{ asset('images/weekly report.png') }}" alt="Weekly Report" class="w-12 h-12"/>
+              </div>
+              <h3 class="card-title text-info">Weekly Report</h3>
+              <p class="text-info/70">See how your week has been</p>
+            </div>
           </div>
         </a>
-
       </div>
-      <div class="bg-green-100 border-2 border-green-300 rounded-2xl p-8">
-        <div class="flex items-center mb-6">
-          <span class="text-2xl mr-3">📝</span>
-          <h3 class="text-xl font-semibold text-green-700">recent mood entries</h3>
-        </div>
-        
-        @if($recentMoods->isEmpty())
-          <div class="text-center py-8">
-            <p class="text-green-600 text-lg">No moods logged yet. Start tracking today! 🌟</p>
+
+      <!-- Recent Mood Entries -->
+      <div class="card bg-base-100 border-2 border-success shadow-xl">
+        <div class="card-body">
+          <div class="flex items-center mb-4">
+            <span class="text-2xl mr-3">📊</span>
+            <h3 class="card-title text-success">Recent Mood Entries</h3>
           </div>
-        @else
-          <div class="overflow-x-auto">
-            <table class="w-full table-auto">
-              <thead>
-                <tr class="text-left border-b-2 border-green-200">
-                  <th class="pb-3 text-green-700 font-semibold">Date</th>
-                  <th class="pb-3 text-green-700 font-semibold">Mood</th>
-                  <th class="pb-3 text-green-700 font-semibold">Note</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($recentMoods as $mood)
-                  <tr class="border-b border-green-100">
-                    <td class="py-3 text-green-700">{{ $mood->created_at->format('M d, Y') }}</td>
-                    <td class="py-3">
-                      <span class="inline-block px-3 py-1 rounded-full text-sm font-medium text-white
-                        @if($mood->mood === 'happy') bg-green-500
-                        @elseif($mood->mood === 'sad') bg-blue-500
-                        @elseif($mood->mood === 'anxious') bg-yellow-500
-                        @elseif($mood->mood === 'angry') bg-red-500
-                        @else bg-gray-500 @endif">
-                        {{ ucfirst($mood->mood) }}
-                      </span>
-                    </td>
-                    <td class="py-3 text-green-700">{{ Str::limit($mood->note, 50) }}</td>
+          
+          @if($recentMoods->isEmpty())
+            <div class="text-center py-8">
+              <p class="text-success text-lg">No moods logged yet. Start tracking today! 🌟</p>
+            </div>
+          @else
+            <div class="overflow-x-auto">
+              <table class="table table-zebra">
+                <thead>
+                  <tr>
+                    <th class="text-success">Date</th>
+                    <th class="text-success">Mood</th>
+                    <th class="text-success">Note</th>
                   </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
-        @endif
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-red-100 border-2 border-red-300 rounded-2xl p-8">
-          <div class="text-center">
-            <div class="text-4xl mb-4">📝</div>
-            <h3 class="text-lg font-semibold text-red-700 mb-2">taking note</h3>
-            <p class="text-sm text-red-600 mb-4">Quick notes and thoughts</p>
-            <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
-              Add Note
-            </button>
-          </div>
+                </thead>
+                <tbody>
+                  @foreach($recentMoods as $mood)
+                    <tr>
+                      <td>{{ $mood->created_at->format('M d, Y') }}</td>
+                      <td>
+                        <span class="badge badge-lg
+                          @if($mood->mood === 'happy') badge-success
+                          @elseif($mood->mood === 'sad') badge-info
+                          @elseif($mood->mood === 'anxious') badge-warning
+                          @elseif($mood->mood === 'angry') badge-error
+                          @else badge-ghost @endif">
+                          {{ ucfirst($mood->mood) }}
+                        </span>
+                      </td>
+                      <td>{{ Str::limit($mood->note, 50) }}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          @endif
         </div>
-        <div class="bg-purple-100 border-2 border-purple-300 rounded-full p-8">
-          <div class="text-center">
-            <div class="text-5xl mb-4">🐱</div>
-            <h3 class="text-lg font-semibold text-purple-700 mb-2">wizard cat</h3>
-            <h4 class="text-md font-medium text-purple-600 mb-4">floating chatbot</h4>
-            <p class="text-sm text-purple-600 mb-4">Get motivational advice and support</p>
-            <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors">
-              Chat Now
-            </button>
+      </div>
+
+      <!-- Bottom Action Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card bg-base-100 border-2 border-primary shadow-xl">
+          <figure class="px-6 pt-6">
+            <img src="{{ asset('images/note.png') }}" alt="take note" class="rounded-xl w-48 h-48 object-cover"/>
+          </figure>
+          <div class="card-body items-center text-center">
+            <h2 class="card-title">Take Note</h2>
+            <p>Write about your current feelings</p>
+            <div class="card-actions">
+              <button class="btn btn-primary">Add note</button>
+            </div>
           </div>
         </div>
 
+        <div class="card bg-base-100 border-2 border-accent shadow-xl">
+          <figure class="px-6 pt-6">
+            <img src="{{ asset('images/Wizard Cat.jpg') }}" alt="wizard cat" class="rounded-xl w-48 h-48 object-cover"/>
+          </figure>
+          <div class="card-body items-center text-center">
+            <h2 class="card-title">Wizard Cat</h2>
+            <p>Your personal motivator and chat companion! 🐱🪄</p>
+            <div class="card-actions">
+              <button class="btn btn-primary">Chat Now</button>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
