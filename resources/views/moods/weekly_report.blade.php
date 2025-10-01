@@ -55,6 +55,9 @@
                                         @case('calm') 😌 @break
                                         @case('anxious') 😰 @break
                                         @case('sad') 😢 @break
+                                        @case('tired') 😴 @break
+                                        @case('stressed') 😰 @break
+                                        @case('angry') 😠 @break
                                         @default 😊
                                     @endswitch
                                 @endif
@@ -90,6 +93,9 @@
                                             @case('calm') 😌 @break
                                             @case('anxious') 😰 @break
                                             @case('sad') 😢 @break
+                                            @case('tired') 😴 @break
+                                            @case('stressed') 😰 @break
+                                            @case('angry') 😠 @break
                                             @default 😊
                                         @endswitch
                                     </div>

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mood;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MoodController extends Controller
 {
-    // Dashboard: summary + recent moods
     public function dashboard()
     {
         $recentMoods = Auth::user()
@@ -23,20 +23,16 @@ class MoodController extends Controller
 
         return view('dashboard', compact('recentMoods', 'todayCount', 'weeklyCount', 'totalCount'));
     }
-
-    // Moods index: full list with pagination
     public function index()
     {
         $moods = Auth::user()->moods()->latest()->paginate(20);
 
         return view('moods.index', compact('moods'));
     }
-
-    // Store a new mood
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'mood' => 'required|in:happy,excited,calm,anxious,sad',
+            'mood' => 'required|in:happy,sad,tired,stressed,excited,anxious,calm,angry',
             'note' => 'nullable|string|max:500',
         ]);
 
@@ -46,7 +42,6 @@ class MoodController extends Controller
             ->with('success', 'Mood entry saved successfully!');
     }
 
-    // Delete a mood
     public function destroy(Mood $mood)
     {
         if ($mood->user_id !== Auth::id()) {
@@ -66,7 +61,17 @@ class MoodController extends Controller
             ->where('created_at', '>=', now()->subWeek())
             ->get();
 
-        return view('moods.weekly_report', compact('weeklyMoods'));
+        $mostCommonMood = $weeklyMoods->isEmpty() ? null : $weeklyMoods->groupBy('mood')->sortByDesc(function($group) {
+            return $group->count();
+        })->keys()->first();
+
+        $uniqueDays = $weeklyMoods->unique(function ($mood) {
+            return $mood->created_at->toDateString();
+        })->count();
+
+        $consistencyRate = round(($uniqueDays / 7) * 100);
+
+        return view('moods.weekly_report', compact('weeklyMoods', 'mostCommonMood', 'consistencyRate'));
     }
 
     // Relief page

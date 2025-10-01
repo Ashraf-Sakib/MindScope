@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Mood extends Model
 {
     use HasFactory;
-
-    // Allow mass assignment
     protected $fillable = [
         'user_id',
         'mood',

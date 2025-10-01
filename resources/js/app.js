@@ -1,108 +1,92 @@
 import './bootstrap';
+import { themeChange } from 'theme-change';
 
 console.log('✅ MindScope loaded successfully!');
 
-// Available DaisyUI themes
+// List of all daisyUI themes
 const themes = [
-    'light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate', 
+    'light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate',
     'synthwave', 'retro', 'cyberpunk', 'valentine', 'halloween', 'garden',
     'forest', 'aqua', 'lofi', 'pastel', 'fantasy', 'wireframe', 'black',
     'luxury', 'dracula', 'cmyk', 'autumn', 'business', 'acid', 'lemonade',
     'night', 'coffee', 'winter', 'dim', 'nord', 'sunset'
 ];
 
-// Dark themes (for applying Tailwind dark class)
-const darkThemes = ['dark', 'night', 'forest', 'black', 'dracula', 'business', 'luxury', 'halloween', 'synthwave', 'cyberpunk', 'coffee', 'dim', 'sunset'];
-
-// Initialize theme on page load
+// Run theme-change after DOM loads
 document.addEventListener('DOMContentLoaded', function() {
-    const savedTheme = localStorage.getItem('theme') || 'cupcake';
-    applyTheme(savedTheme);
+    // Initialize theme-change library (enables data-set-theme etc.)
+    themeChange(false); // false = don't log in console
+
+    // Ensure a default theme if none is saved
+    const savedTheme = localStorage.getItem('theme');
+    if (!savedTheme) {
+        applyTheme('valentine'); // default theme
+    } else {
+        applyTheme(savedTheme);
+    }
+
     populateThemeSelector();
 });
 
-// Apply theme function
+// ✅ Apply theme function
 function applyTheme(themeName) {
-    const html = document.documentElement;
-    html.setAttribute('data-theme', themeName);
-    
-    // Add/remove dark class for Tailwind
-    if (darkThemes.includes(themeName)) {
-        html.classList.add('dark');
-    } else {
-        html.classList.remove('dark');
-    }
-    
+    document.documentElement.setAttribute('data-theme', themeName);
     localStorage.setItem('theme', themeName);
-    
-    // Update theme selector if it exists
+
     const selector = document.getElementById('theme-selector');
     if (selector) {
         selector.value = themeName;
     }
-    
-    console.log('Theme applied:', themeName);
+
+    console.log('🌈 Theme applied:', themeName);
 }
 
-// Populate theme selector dropdown
+// ✅ Populate theme dropdown selector
 function populateThemeSelector() {
     const selector = document.getElementById('theme-selector');
     if (!selector) return;
-    
-    const currentTheme = localStorage.getItem('theme') || 'cupcake';
-    
-    // Clear existing options
+
+    const currentTheme = localStorage.getItem('theme') || 'valentine';
     selector.innerHTML = '';
-    
-    // Add all theme options
+
     themes.forEach(theme => {
         const option = document.createElement('option');
         option.value = theme;
         option.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
-        if (theme === currentTheme) {
-            option.selected = true;
-        }
+        if (theme === currentTheme) option.selected = true;
         selector.appendChild(option);
     });
-    
-    // Add change event listener
+
     selector.addEventListener('change', function() {
         applyTheme(this.value);
     });
 }
 
-// Legacy toggle theme function (for button)
-window.toggleTheme = function() {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = darkThemes.includes(currentTheme) ? 'cupcake' : 'dark';
-    applyTheme(newTheme);
-};
-
-// Change theme function
+// ✅ Quick change theme (usable in buttons)
 window.changeTheme = function(themeName) {
     if (themes.includes(themeName)) {
         applyTheme(themeName);
     } else {
-        console.error('Invalid theme:', themeName);
+        console.error('❌ Invalid theme:', themeName);
     }
 };
 
-// Quick mood selection
-window.selectQuickMood = function(mood) {
+// ✅ Mood selection
+window.selectQuickMood = function(mood, event) {
     const select = document.getElementById('mood-select');
     if (select) {
         select.value = mood;
-        console.log('Mood selected:', mood);
-        
-        // Visual feedback on button
+        console.log('😊 Mood selected:', mood);
+
         const buttons = document.querySelectorAll('[onclick^="selectQuickMood"]');
         buttons.forEach(btn => {
             btn.classList.remove('ring-4', 'ring-offset-2', 'ring-primary');
         });
-        event.target.closest('button').classList.add('ring-4', 'ring-offset-2', 'ring-primary');
-        
-        // Scroll to textarea
+
+        if (event?.target) {
+            event.target.closest('button').classList.add('ring-4', 'ring-offset-2', 'ring-primary');
+        }
+
         const textarea = document.getElementById('mood-details');
         if (textarea) {
             textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -111,27 +95,25 @@ window.selectQuickMood = function(mood) {
     }
 };
 
-// Save mood function
+// ✅ Save mood
 window.saveMood = function() {
     const mood = document.getElementById('mood-select')?.value;
     const details = document.getElementById('mood-details')?.value;
-    
+
     if (!mood) {
         alert('⚠️ Please select a mood first!');
         return;
     }
-    
-    console.log('Saving mood:', { mood, details });
+
+    console.log('💾 Saving mood:', { mood, details });
     alert(`✅ Mood saved!\n\nMood: ${mood}\nDetails: ${details || 'None'}`);
-    
-    // Reset form
+
     const select = document.getElementById('mood-select');
     const textarea = document.getElementById('mood-details');
-    
+
     if (select) select.value = '';
     if (textarea) textarea.value = '';
-    
-    // Remove visual feedback from buttons
+
     const buttons = document.querySelectorAll('[onclick^="selectQuickMood"]');
     buttons.forEach(btn => {
         btn.classList.remove('ring-4', 'ring-offset-2', 'ring-primary');

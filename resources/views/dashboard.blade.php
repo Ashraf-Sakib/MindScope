@@ -1,7 +1,6 @@
 <x-app-layout>
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
-      <!-- Welcome Section -->
       <div class="card bg-base-100 shadow-xl">
         <div class="card-body">
           <h3 class="card-title text-lg">Welcome section</h3>
