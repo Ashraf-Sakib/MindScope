@@ -4,26 +4,56 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View; // ✅ Add this
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-         Blade::component('layouts.dashboard', 'dashboard-layout');
+        // ✅ Register your custom Blade component
+        Blade::component('layouts.dashboard', 'dashboard-layout');
+
+        // ✅ Share DaisyUI themes globally with all views
+        View::share('themes', [
+                'light',
+        'dark',
+        'cupcake',
+        'bumblebee',
+        'emerald',
+        'corporate',
+        'synthwave',
+        'retro',
+        'cyberpunk',
+        'valentine',
+        'halloween',
+        'garden',
+        'forest',
+        'aqua',
+        'lofi',
+        'pastel',
+        'fantasy',
+        'wireframe',
+        'black',
+        'luxury',
+        'dracula',
+        'cmyk',
+        'autumn',
+        'business',
+        'acid',
+        'lemonade',
+        'coffee',
+        'winter',
+        ]);
     }
 }

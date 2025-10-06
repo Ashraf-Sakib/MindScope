@@ -1,34 +1,17 @@
 import './bootstrap';
 import { themeChange } from 'theme-change';
 
-console.log('✅ MindScope loaded successfully!');
+console.log('✨ MindScope loaded successfully!');
 
-// List of all daisyUI themes
-const themes = [
-    'light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate',
+// List of all available DaisyUI themes
+const availableThemes = [
+    'light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate', 
     'synthwave', 'retro', 'cyberpunk', 'valentine', 'halloween', 'garden',
     'forest', 'aqua', 'lofi', 'pastel', 'fantasy', 'wireframe', 'black',
     'luxury', 'dracula', 'cmyk', 'autumn', 'business', 'acid', 'lemonade',
     'night', 'coffee', 'winter', 'dim', 'nord', 'sunset'
 ];
 
-// Run theme-change after DOM loads
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize theme-change library (enables data-set-theme etc.)
-    themeChange(false); // false = don't log in console
-
-    // Ensure a default theme if none is saved
-    const savedTheme = localStorage.getItem('theme');
-    if (!savedTheme) {
-        applyTheme('valentine'); // default theme
-    } else {
-        applyTheme(savedTheme);
-    }
-
-    populateThemeSelector();
-});
-
-// ✅ Apply theme function
 function applyTheme(themeName) {
     document.documentElement.setAttribute('data-theme', themeName);
     localStorage.setItem('theme', themeName);
@@ -38,18 +21,18 @@ function applyTheme(themeName) {
         selector.value = themeName;
     }
 
-    console.log('🌈 Theme applied:', themeName);
+    console.log('🎨 Theme applied:', themeName);
 }
 
-// ✅ Populate theme dropdown selector
 function populateThemeSelector() {
     const selector = document.getElementById('theme-selector');
     if (!selector) return;
 
-    const currentTheme = localStorage.getItem('theme') || 'valentine';
+    const currentTheme = localStorage.getItem('theme') || 'light';
     selector.innerHTML = '';
 
-    themes.forEach(theme => {
+    // Populate with all available themes
+    availableThemes.forEach(theme => {
         const option = document.createElement('option');
         option.value = theme;
         option.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
@@ -57,22 +40,32 @@ function populateThemeSelector() {
         selector.appendChild(option);
     });
 
-    selector.addEventListener('change', function() {
+    selector.addEventListener('change', function () {
         applyTheme(this.value);
     });
+
+    console.log('✅ Theme selector populated with', availableThemes.length, 'themes');
 }
 
-// ✅ Quick change theme (usable in buttons)
-window.changeTheme = function(themeName) {
-    if (themes.includes(themeName)) {
-        applyTheme(themeName);
-    } else {
-        console.error('❌ Invalid theme:', themeName);
-    }
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize theme-change library
+    themeChange(false);
+
+    // Apply saved theme or default to light
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+
+    // Populate theme selector
+    populateThemeSelector();
+
+    console.log('🚀 Theme system initialized');
+});
+
+window.changeTheme = function (themeName) {
+    applyTheme(themeName);
 };
 
-// ✅ Mood selection
-window.selectQuickMood = function(mood, event) {
+window.selectQuickMood = function (mood, event) {
     const select = document.getElementById('mood-select');
     if (select) {
         select.value = mood;
@@ -90,13 +83,12 @@ window.selectQuickMood = function(mood, event) {
         const textarea = document.getElementById('mood-details');
         if (textarea) {
             textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(() => textarea.focus(), 500);
+            textarea.focus({ preventScroll: true });
         }
     }
 };
 
-// ✅ Save mood
-window.saveMood = function() {
+window.saveMood = function () {
     const mood = document.getElementById('mood-select')?.value;
     const details = document.getElementById('mood-details')?.value;
 

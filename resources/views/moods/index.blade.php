@@ -9,10 +9,8 @@
             </p>
         </div>
     </section>
-
-    <!-- Project Introduction -->
     <section class="max-w-4xl mx-auto px-6 mb-12">
-        <div class="bg-base-100 rounded-3xl p-8 shadow-xl border-2 border-primary">
+        <div class="bg-base-100 text-base-content rounded-3xl p-8 shadow-xl border-2 border-primary">
             <h2 class="text-2xl font-semibold text-base-content mb-3">About MindScope</h2>
             <p class="text-base-content/70 leading-relaxed">
                 MindScope is your personal mood tracking companion. Take a moment each day to reflect on how you're feeling, 
@@ -21,8 +19,6 @@
             </p>
         </div>
     </section>
-
-    <!-- Mood Selection Section -->
     <section class="max-w-4xl mx-auto px-6 mb-12">
         <form action="{{ route('moods.store') }}" method="POST" class="bg-base-100 rounded-3xl p-8 shadow-xl border-2 border-base-200">
             @csrf
@@ -90,7 +86,7 @@
             </a>
         </div>
     </section>
-    <script>
+    {{-- <script>
         function selectQuickMood(mood) {
             const select = document.getElementById('mood-select');
             select.value = mood;
@@ -106,5 +102,5 @@
             });
             document.getElementById('mood-details').focus();
         }
-    </script>
+    </script> --}}
 </x-app-layout>

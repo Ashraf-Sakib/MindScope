@@ -1,4 +1,4 @@
-<x-app_layout>
+<x-app-layout>
    
     <section class="text-center mt-20">
         <h1 class="text-3xl font-bold text-gray-700">Welcome to MindScope </h1>
@@ -17,4 +17,4 @@
             Go to Dashboard
         </a>
     </div>
-</x-app_layout>
+</x-app-layout>

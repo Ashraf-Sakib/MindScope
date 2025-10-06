@@ -3,6 +3,7 @@
 use App\Http\Controllers\MoodController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\WizardCatController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -19,5 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('profile.edit');
     Route::get('/weekly-report', [MoodController::class, 'weeklyReport'])->name('weekly.report');
     Route::get('/relief', [MoodController::class, 'relief'])->name('relief');
+    Route::post('/wizard-cat/respond', [WizardCatController::class, 'respond'])
+    ->middleware(['auth'])
+    ->name('wizard-cat.respond');
 });
 

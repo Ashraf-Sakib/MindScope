@@ -41,15 +41,19 @@
     <div class="navbar-end gap-2">
         <div class="flex items-center">
             <label for="theme-selector" class="sr-only">Choose Theme</label>
-            <select id="theme-selector" class="select select-bordered w-32 mr-2"></select>
+            <select id="theme-selector" class="select select-bordered select-sm w-32">
+                <!-- Options will be populated by JavaScript -->
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
         </div>
         <div class="dropdown dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
-                <div class="bg-primary text-primary-content rounded-full w-10">
+                <div class="bg-base-100 text-base-content rounded-full w-10">
                     <span class="text-xl">{{ substr(Auth::user()->name ?? 'G', 0, 1) }}</span>
                 </div>
             </div>
-            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box w-52">
                 <li class="menu-title">
                     <span class="text-base">{{ Auth::user()->name ?? 'Guest' }}</span>
                     <span class="text-xs opacity-60">{{ Auth::user()->email ?? 'Not logged in' }}</span>
