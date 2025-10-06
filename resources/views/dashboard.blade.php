@@ -181,8 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
         input.disabled = true;
         sendBtnText.classList.add('hidden');
         sendBtnLoader.classList.remove('hidden');
-
-        // Add user message
         const userMsg = document.createElement('div');
         userMsg.className = 'chat chat-end';
         userMsg.innerHTML = `<div class="chat-bubble chat-bubble-primary">${escapeHtml(text)}</div>`;

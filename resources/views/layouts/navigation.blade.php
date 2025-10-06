@@ -8,7 +8,7 @@
             </div>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                 <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li><a href="#">Home</a></li>
+                <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="{{ route('profile.edit') }}">Profile</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="{{ request()->routeIs('index') ? 'active' : '' }}">
+                <a href="{{ route('home') }}" class="{{ request()->routeIs('welcome') ? 'active' : '' }}">
                     Home
                 </a>
             </li>

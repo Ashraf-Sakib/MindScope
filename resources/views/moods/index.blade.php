@@ -86,21 +86,4 @@
             </a>
         </div>
     </section>
-    {{-- <script>
-        function selectQuickMood(mood) {
-            const select = document.getElementById('mood-select');
-            select.value = mood;
-            
-            // Visual feedback
-            const event = new Event('change', { bubbles: true });
-            select.dispatchEvent(event);
-            
-            // Scroll to textarea
-            document.getElementById('mood-details').scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'center' 
-            });
-            document.getElementById('mood-details').focus();
-        }
-    </script> --}}
 </x-app-layout>

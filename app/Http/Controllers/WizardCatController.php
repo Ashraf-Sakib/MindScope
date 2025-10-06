@@ -4,47 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class WizardCatController extends Controller
 {
-    public function respond(Request $request)
+    public function chat(Request $request)
     {
-        $user_msg = $request->input('message');
-        
-        if (!$user_msg) {
-            return response()->json(['reply' => 'Please say something, young adventurer! 🪄'], 400);
-        }
-        $apiKey = env('GEMINI_API_KEY');
-        
-        if (!$apiKey) {
-            return response()->json(['reply' => '🐾 Wizard Cat needs magical powers! Please add GEMINI_API_KEY to .env'], 500);
+        $userMessage = $request->input('message');
+
+        if (!$userMessage) {
+            return response()->json(['reply' => "Meow~ Please tell me something! 😺"]);
         }
 
-        $systemPrompt = env('AI_SYSTEM_PROMPT', 'You are a wise and friendly Wizard Cat who speaks kindly and gives comforting advice');
-        
-        $response = Http::timeout(30)->post(
-
-            $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={$apiKey}",
-[
+        try {
+            // Gemini API request
+            $response = Http::post(env('GEMINI_API_URL') . '?key=' . env('GEMINI_API_KEY'), [
                 'contents' => [
                     [
+                        'role' => 'user',
                         'parts' => [
-                            ['text' => $systemPrompt . "\n\nUser: " . $user_msg]
-                        ]
-                    ]
+                            ['text' => "You are Wizard Cat 🐱🪄 — a kind, witty, and magical companion who helps users feel better when anxious or sad. 
+                            Be conversational and short. User says: " . $userMessage],
+                        ],
+                    ],
                 ],
-                
-            ]
-        );
+            ]);
 
-        if ($response->failed()) {
-            Log::error('Gemini API Error: ' . $response->body());
-            return response()->json(['reply' => '🐾 Wizard Cat is napping. Try again later!'], 500);
+            if ($response->failed()) {
+                return response()->json(['reply' => "Meow~ my magic connection failed 😿"]);
+            }
+
+            $reply = $response->json('candidates.0.content.parts.0.text') ?? "Meow~ I didn't quite catch that 🐾";
+
+            return response()->json(['reply' => $reply]);
+        } catch (\Exception $e) {
+            return response()->json(['reply' => "Meow~ my magic wand glitched! 😿"]);
         }
-
-        $reply = $response->json('candidates.0.content.parts.0.text') ?? 'Meow? 🐱';
-
-        return response()->json(['reply' => trim($reply)]);
     }
 }

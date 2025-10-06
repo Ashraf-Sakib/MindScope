@@ -1,20 +1,37 @@
 <x-app-layout>
-   
-    <section class="text-center mt-20">
-        <h1 class="text-3xl font-bold text-gray-700">Welcome to MindScope </h1>
-        <p class="text-gray-500 mt-2">Track your mood, check in daily, and see your progress over time.</p>
+    <section class="min-h-screen flex flex-col items-center justify-center bg-base-200 text-base-content px-6 text-center">
+       <div class="max-w-2xl space-y-6">
+            <h1 class="text-5xl font-extrabold text-primary">
+                🌿 Welcome to <span class="text-accent">MindScope</span>
+            </h1>
+            <p class="text-lg text-base-content/70 leading-relaxed">
+                A peaceful space to reflect on your emotions, track your moods, 
+                and find balance in your mental well-being 💫
+            </p>
+            <div class="mt-8 flex justify-center">
+                <img 
+                    src="{{ asset('images/Pagol.png') }}" 
+                    alt="MindScope illustration"
+                    class="max-w-xs md:max-w-md rounded-2xl "
+                />
+            </div>
+            <p class="italic text-base-content/60 text-lg mt-8">
+                “Your emotions are messages — not instructions. Listen, understand, and grow.” 🌙
+            </p>
+            <div class="flex justify-center gap-4 mt-10">
+                @auth
+                    <a href="{{ route('dashboard') }}" class="btn btn-primary btn-wide">
+                        Go to Dashboard
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-primary btn-wide">
+                        Get Started
+                    </a>
+                    <a href="{{ route('register') }}" class="btn btn-outline btn-accent btn-wide">
+                        Join Now
+                    </a>
+                @endauth
+            </div>
+        </div>
     </section>
-
-   
-    <section class="flex justify-center gap-4 mt-10">
-        <button class="w-16 h-16 rounded-full bg-mint-100 hover:bg-mint-200 flex items-center justify-center text-2xl">Happy</button>
-        <button class="w-16 h-16 rounded-full bg-blue-100 hover:bg-blue-200 flex items-center justify-center text-2xl">Sad</button>
-        <button class="w-16 h-16 rounded-full bg-purple-100 hover:bg-purple-200 flex items-center justify-center text-2xl">Excited</button>
-        <button class="w-16 h-16 rounded-full bg-lavender-100 hover:bg-lavender-200 flex items-center justify-center text-2xl">Stressed</button>
-    </section>
-    <div class="mt-10 text-center">
-        <a href="/dashboard" class="bg-mint-200 hover:bg-mint-300 text-gray-700 py-2 px-6 rounded-xl font-medium">
-            Go to Dashboard
-        </a>
-    </div>
 </x-app-layout>
