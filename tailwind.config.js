@@ -8,8 +8,12 @@ export default {
     "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+       fontFamily: {
+      sans: ['Montserrat', 'Merriweather'],
+    },
   },
+},
   plugins: [daisyui],
 
   daisyui: {
