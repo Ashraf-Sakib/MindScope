@@ -48,7 +48,6 @@
         </a>
       </div>
 
-      <!-- Recent Mood Entries -->
       <div class="card bg-base-100 text-base-content border-2 border-success shadow-xl">
         <div class="card-body">
           <div class="flex items-center mb-4">
@@ -94,7 +93,6 @@
         </div>
       </div>
 
-      <!-- Take Note Card -->
       <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
         <div class="card bg-base-100 text-base-content border-2 border-primary shadow-xl">
           <figure class="px-6 pt-6">
@@ -104,7 +102,7 @@
             <h2 class="card-title">Take Note</h2>
             <p>Write about your current feelings</p>
             <div class="card-actions">
-              <a href="{{ route('moods.index') }}" class="btn btn-primary">Add note</a>
+              <a href="{{ route('journal.index') }}" class="btn btn-primary">Add note</a>
             </div>
           </div>
         </div>
@@ -112,135 +110,80 @@
     </div>
 </div>
 
-<!-- Wizard Cat Chat Widget -->
-<div id="wizardChatContainer" class="fixed bottom-6 right-6 z-50">
-    <!-- Floating Chat Button -->
-    <button id="openWizardChat"
-        class="shadow-2xl hover:scale-110 transition-transform rounded-full overflow-hidden border-4 border-primary bg-base-100">
-        <img src="{{ asset('images/Wizard Cat.jpg') }}" alt="wizard cat" class="w-16 h-16 object-cover"/>
-    </button>
+<div id="wizard-cat"
+     class="fixed bottom-10 right-10 z-50 cursor-pointer transition-transform duration-300 hover:scale-110">
+    <img src="{{ asset('images/wizard_cat.png') }}" 
+         alt="Wizard Cat" 
+         class="w-20 h-auto select-none drop-shadow-lg" />
+</div>
 
-    <!-- Chat Modal -->
-    <div id="wizardChatModal" class="hidden fixed bottom-24 right-6 w-80 sm:w-96 bg-base-100 rounded-2xl shadow-2xl border-2 border-primary">
-        <div class="bg-primary text-primary-content p-4 rounded-t-2xl flex justify-between items-center">
-            <h3 class="font-bold text-lg">🐱 Wizard Cat</h3>
-            <button id="closeWizardChat" class="btn btn-sm btn-ghost btn-circle">✕</button>
-        </div>
+<div id="wizard-chat" 
+     class="hidden fixed bottom-32 right-10 bg-base-100 shadow-xl border border-base-300 rounded-2xl w-80 p-4 space-y-3 z-50">
+    <div class="flex justify-between items-center border-b pb-2 mb-2">
+        <h3 class="font-semibold text-lg text-primary">Wizard Cat 🪄</h3>
+        <button id="close-wizard-chat" class="btn btn-xs btn-circle btn-ghost">✕</button>
+    </div>
 
-        <div id="chatMessages" class="p-4 h-64 overflow-y-auto space-y-3 bg-base-200">
-            <div class="chat chat-start">
-                <div class="chat-bubble chat-bubble-secondary">
-                    Hi there! I'm Wizard Cat 🪄 Tell me how you feel today!
-                </div>
+    <div id="wizard-chat-messages" class="h-60 overflow-y-auto space-y-2 bg-base-200 p-2 rounded-lg">
+        <div class="chat chat-start">
+            <div class="chat-bubble chat-bubble-secondary">
+                Hi there! I'm Wizard Cat 🐱 How are you feeling today?
             </div>
         </div>
+    </div>
 
-        <div class="p-4 border-t-2 border-base-300 flex gap-2 bg-base-100 rounded-b-2xl">
-            <input id="chatInput" type="text" placeholder="Type a message..." 
-                   class="input input-bordered w-full" />
-            <button id="sendChat" class="btn btn-primary">
-                <span id="sendBtnText">Send</span>
-                <span id="sendBtnLoader" class="loading loading-spinner loading-sm hidden"></span>
-            </button>
-        </div>
+    <div class="flex gap-2 pt-2">
+        <input id="wizard-chat-input" type="text" placeholder="Ask me anything..."
+               class="input input-bordered w-full" />
+        <button id="wizard-chat-send" class="btn btn-primary btn-sm">Send</button>
     </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const openBtn = document.getElementById('openWizardChat');
-    const closeBtn = document.getElementById('closeWizardChat');
-    const modal = document.getElementById('wizardChatModal');
-    const sendBtn = document.getElementById('sendChat');
-    const input = document.getElementById('chatInput');
-    const messages = document.getElementById('chatMessages');
-    const sendBtnText = document.getElementById('sendBtnText');
-    const sendBtnLoader = document.getElementById('sendBtnLoader');
+    document.addEventListener('DOMContentLoaded', () => {
+        const cat = document.getElementById('wizard-cat');
+        const chat = document.getElementById('wizard-chat');
+        const closeBtn = document.getElementById('close-wizard-chat');
+        const sendBtn = document.getElementById('wizard-chat-send');
+        const input = document.getElementById('wizard-chat-input');
+        const messages = document.getElementById('wizard-chat-messages');
 
-    if (!openBtn || !closeBtn || !modal || !sendBtn || !input || !messages) {
-        console.error('Chat widget elements not found');
-        return;
-    }
+        cat.addEventListener('click', () => {
+            chat.classList.toggle('hidden');
+            cat.classList.toggle('scale-95');
+        });
 
-    openBtn.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-        input.focus();
-    });
+        closeBtn.addEventListener('click', () => {
+            chat.classList.add('hidden');
+            cat.classList.remove('scale-95');
+        });
 
-    closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
+        sendBtn.addEventListener('click', () => {
+            const text = input.value.trim();
+            if (text !== '') {
+                const userMsg = document.createElement('div');
+                userMsg.className = 'chat chat-end';
+                userMsg.innerHTML = `<div class="chat-bubble chat-bubble-primary">${text}</div>`;
+                messages.appendChild(userMsg);
+                input.value = '';
+                messages.scrollTop = messages.scrollHeight;
 
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keypress', (e) => { 
-        if (e.key === 'Enter' && !sendBtn.disabled) sendMessage(); 
-    });
-
-    async function sendMessage() {
-        const text = input.value.trim();
-        if (!text) return;
-        sendBtn.disabled = true;
-        input.disabled = true;
-        sendBtnText.classList.add('hidden');
-        sendBtnLoader.classList.remove('hidden');
-        const userMsg = document.createElement('div');
-        userMsg.className = 'chat chat-end';
-        userMsg.innerHTML = `<div class="chat-bubble chat-bubble-primary">${escapeHtml(text)}</div>`;
-        messages.appendChild(userMsg);
-
-        input.value = '';
-        messages.scrollTop = messages.scrollHeight;
-
-        try {
-            // Call the API
-            const response = await fetch('{{ route("wizard-cat.respond") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({ message: text })
-            });
-            const data = await response.json();
-            console.log('API Response:', data);
-
-            if (!response.ok) {
-                console.error('Response status:', response.status);
-                console.error('Response data:', data);
-                throw new Error(data.reply || `Server returned ${response.status}`);
+                setTimeout(() => {
+                    const reply = document.createElement('div');
+                    reply.className = 'chat chat-start';
+                    reply.innerHTML = `<div class="chat-bubble chat-bubble-secondary">Hmm... interesting 😺</div>`;
+                    messages.appendChild(reply);
+                    messages.scrollTop = messages.scrollHeight;
+                }, 800);
             }
+        });
 
-            if (!data.reply) {
-                throw new Error('No reply received from API');
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendBtn.click();
             }
-            const botMsg = document.createElement('div');
-            botMsg.className = 'chat chat-start';
-            botMsg.innerHTML = `<div class="chat-bubble chat-bubble-secondary">${escapeHtml(data.reply)}</div>`;
-            messages.appendChild(botMsg);
-            messages.scrollTop = messages.scrollHeight;
-
-        } catch (error) {
-            console.error('Caught Error:', error);
-            console.error('Error type:', error.name);
-            console.error('Error message:', error.message);
-            const errorMsg = document.createElement('div');
-            errorMsg.className = 'chat chat-start';
-            errorMsg.innerHTML = `<div class="chat-bubble chat-bubble-error">Oops! ${escapeHtml(error.message)} 🐾</div>`;
-            messages.appendChild(errorMsg);
-            messages.scrollTop = messages.scrollHeight;
-        } finally {
-            sendBtn.disabled = false;
-            input.disabled = false;
-            sendBtnText.classList.remove('hidden');
-            sendBtnLoader.classList.add('hidden');
-            input.focus();
-        }
-    }
-
-    function escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-});
+        });
+    });
 </script>
+
 </x-app-layout>
