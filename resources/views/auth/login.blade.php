@@ -33,6 +33,9 @@
                         required autocomplete="current-password">
                     <x-input-error :messages="$errors->get('password')" class="mt-2 text-sm text-error" />
                 </div>
+                 <label class="label cursor-pointer flex items-center gap-2">
+                    <span class="label-text">Don't have an account? <a href="{{ route('register') }}" class="link link-hover text-sm text-primary">Sign Up</a> </span>
+                </label>
                 <label class="label cursor-pointer flex items-center gap-2">
                     <input type="checkbox" name="remember" class="checkbox checkbox-primary" />
                     <span class="label-text">Remember me</span>

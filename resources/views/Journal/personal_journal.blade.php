@@ -1,16 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-3xl text-base-content leading-tight">
-            📔 Personal Journal
+            📔 MindDiary- Your Personal Journal
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Welcome Card -->
             <div class="card bg-gradient-to-r from-primary to-secondary text-primary-content shadow-xl mb-6">
                 <div class="card-body">
-                    <h2 class="card-title text-2xl">Welcome to Your Journal, {{ Auth::user()->name }}!</h2>
+                    <h2 class="card-title text-2xl">Welcome to MindDiary, {{ Auth::user()->name }}!</h2>
                     <p class="opacity-90">Capture your thoughts, reflect on your day, and track your personal growth journey.</p>
                 </div>
             </div>

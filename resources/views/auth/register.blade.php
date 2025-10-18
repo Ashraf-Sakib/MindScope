@@ -53,7 +53,6 @@
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-sm text-error" />
                 </div>
                 <label class="label cursor-pointer flex items-center gap-2">
-                    <input type="checkbox" name="remember" class="checkbox checkbox-primary" />
                     <span class="label-text">Already have an account? <a href="{{ route('login') }}" class="link link-hover text-sm text-primary">Login</a> </span>
                 </label>
                 <div class="flex justify-between items-center">

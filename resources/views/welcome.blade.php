@@ -21,7 +21,7 @@
             <div class="flex justify-center gap-4 mt-10">
                 @auth
                     <a href="{{ route('dashboard') }}" class="btn btn-primary btn-wide">
-                        Go to Dashboard
+                       Go to MindInsight
                     </a>
                 @else
                     <a href="{{ route('login') }}" class="btn btn-primary btn-wide">

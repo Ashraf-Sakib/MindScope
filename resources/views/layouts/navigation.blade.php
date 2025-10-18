@@ -7,13 +7,13 @@
                 </svg>
             </div>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="{{ route('profile.edit') }}">Profile</a></li>
+                <li><a href="{{ route('dashboard') }}">MindInsight</a></li>
+                <li><a href="{{ route('home') }}">MindHaven</a></li>
+                <li><a href="{{ route('profile.edit') }}">MindSelf</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="w-full text-left">Logout</button>
+                        <button type="submit" class="w-full text-left">MindPause</button>
                     </form>
                 </li>
             </ul>
@@ -28,12 +28,12 @@
         <ul class="menu menu-horizontal px-1">
             <li>
                 <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                    Dashboard
+                    MindInsight
                 </a>
             </li>
             <li>
                 <a href="{{ route('home') }}" class="{{ request()->routeIs('welcome') ? 'active' : '' }}">
-                    Home
+                    MindHaven
                 </a>
             </li>
         </ul>
@@ -58,11 +58,11 @@
                     <span class="text-base">{{ Auth::user()->name ?? 'Guest' }}</span>
                     <span class="text-xs opacity-60">{{ Auth::user()->email ?? 'Not logged in' }}</span>
                 </li>
-                <li><a href="{{ route('profile.edit') }}">Profile Settings</a></li>
+                <li><a href="{{ route('profile.edit') }}">MindPanel</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="w-full text-left">Logout</button>
+                        <button type="submit" class="w-full text-left">MindPause</button>
                     </form>
                 </li>
             </ul>
