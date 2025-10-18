@@ -3,7 +3,6 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
       <div class="card bg-base-100 text-base-content shadow-xl">
         <div class="card-body">
-          <h3 class="card-title text-lg">Welcome section</h3>
           <p class="text-base-content/70">
             Welcome back, {{ Auth::user()->name }}! ✨<br>
             Track your mood, reflect on your week, and chat with Wizard Cat for motivation 🐱🪄
@@ -127,13 +126,13 @@
     <div id="wizard-chat-messages" class="h-60 overflow-y-auto space-y-2 bg-base-200 p-2 rounded-lg">
         <div class="chat chat-start">
             <div class="chat-bubble chat-bubble-secondary">
-                Hi there! I'm Wizard Cat 🐱 How are you feeling today?
+                Hi there! I'm Wise Wizard Cat.How are you feeling today?
             </div>
         </div>
     </div>
 
     <div class="flex gap-2 pt-2">
-        <input id="wizard-chat-input" type="text" placeholder="Ask me anything..."
+        <input id="wizard-chat-input" type="text" placeholder="Share your feelings..."
                class="input input-bordered w-full" />
         <button id="wizard-chat-send" class="btn btn-primary btn-sm">Send</button>
     </div>
@@ -158,25 +157,45 @@
             cat.classList.remove('scale-95');
         });
 
-        sendBtn.addEventListener('click', () => {
-            const text = input.value.trim();
-            if (text !== '') {
-                const userMsg = document.createElement('div');
-                userMsg.className = 'chat chat-end';
-                userMsg.innerHTML = `<div class="chat-bubble chat-bubble-primary">${text}</div>`;
-                messages.appendChild(userMsg);
-                input.value = '';
-                messages.scrollTop = messages.scrollHeight;
+        sendBtn.addEventListener('click', async () => {
+    const text = input.value.trim();
+    if (text !== '') {
+        const userMsg = document.createElement('div');
+        userMsg.className = 'chat chat-end';
+        userMsg.innerHTML = `<div class="chat-bubble chat-bubble-primary">${text}</div>`;
+        messages.appendChild(userMsg);
+        input.value = '';
+        messages.scrollTop = messages.scrollHeight;
 
-                setTimeout(() => {
-                    const reply = document.createElement('div');
-                    reply.className = 'chat chat-start';
-                    reply.innerHTML = `<div class="chat-bubble chat-bubble-secondary">Hmm... interesting 😺</div>`;
-                    messages.appendChild(reply);
-                    messages.scrollTop = messages.scrollHeight;
-                }, 800);
-            }
-        });
+        try {
+            const response = await fetch('/wizard-cat/respond', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({ message: text })
+            });
+
+            const data = await response.json();
+            
+            document.getElementById('loading-msg')?.remove();
+            const reply = document.createElement('div');
+            reply.className = 'chat chat-start';
+            reply.innerHTML = `<div class="chat-bubble chat-bubble-secondary">${data.reply}</div>`;
+            messages.appendChild(reply);
+            messages.scrollTop = messages.scrollHeight;
+        } catch (error) {
+            document.getElementById('loading-msg')?.remove();
+            
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'chat chat-start';
+            errorMsg.innerHTML = `<div class="chat-bubble chat-bubble-error">Meow: Something went wrong! </div>`;
+            messages.appendChild(errorMsg);
+            messages.scrollTop = messages.scrollHeight;
+        }
+    }
+});
 
         input.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {

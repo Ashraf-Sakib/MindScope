@@ -29,16 +29,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('/weekly-report', [MoodController::class, 'weeklyReport'])->name('weekly.report');
     Route::get('/relief', [MoodController::class, 'relief'])->name('relief');
-    Route::post('/wizard-cat/respond', [WizardCatController::class, 'respond'])
+    Route::post('/wizard-cat/respond', [WizardCatController::class, 'chat'])
         ->name('wizard-cat.respond');
         Route::middleware(['auth', 'verified'])->group(function () {
     // ... existing routes
-   Route::get('/journal', [JournalController::class, 'index'])->name('journal.index');       // Show all entries
-Route::get('/journal/create', [JournalController::class, 'create'])->name('journal.create'); // Show "new entry" form
-Route::post('/journal', [JournalController::class, 'store'])->name('journal.store');        // Store new entry
-Route::get('/journal/{journal}/edit', [JournalController::class, 'edit'])->name('journal.edit');   // Edit entry
-Route::patch('/journal/{journal}', [JournalController::class, 'update'])->name('journal.update'); // Update entry
-Route::delete('/journal/{journal}', [JournalController::class, 'destroy'])->name('journal.destroy'); // Delete entry
+Route::get('/Journal', [JournalController::class, 'index'])->name('journal.index'); 
+Route::get('/Journal/{journal}', [JournalController::class, 'show'])->name('journal.show');
+    // Show all entries
+Route::get('/Journal/create', [JournalController::class, 'create'])->name('journal.create'); // Show "new entry" form
+Route::post('/Journal', [JournalController::class, 'store'])->name('journal.store');        // Store new entry
+Route::get('/Journal/{journal}/edit', [JournalController::class, 'edit'])->name('journal.edit');   // Edit entry
+Route::patch('/Journal/{journal}', [JournalController::class, 'update'])->name('journal.update'); // Update entry
+Route::delete('/Journal/{journal}', [JournalController::class, 'destroy'])->name('journal.destroy'); // Delete entry
 
 });
    

@@ -70,51 +70,7 @@
                                             <span class="label-text-alt text-error">{{ $message }}</span>
                                         </label>
                                     @enderror
-                                </div>
-
-                                <!-- Tags -->
-                                <div class="form-control">
-                                    <label for="tags" class="label">
-                                        <span class="label-text font-medium">Tags</span>
-                                        <span class="label-text-alt text-xs opacity-60">Separate with commas</span>
-                                    </label>
-                                    <input 
-                                        type="text" 
-                                        id="tags"
-                                        name="tags"
-                                        placeholder="e.g., gratitude, goals, reflection" 
-                                        class="input input-bordered w-full"
-                                        value="{{ old('tags') }}"
-                                    />
-                                </div>
-
-                                <!-- Mood Selection -->
-                                <div class="form-control">
-                                    <label class="label">
-                                        <span class="label-text font-medium">How are you feeling?</span>
-                                    </label>
-                                    <div class="flex flex-wrap gap-2">
-                                        @foreach(['😊 Happy', '😔 Sad', '😰 Anxious', '😌 Calm', '😤 Frustrated', '🥰 Grateful', '😴 Tired', '🔥 Energetic'] as $mood)
-                                            <label class="cursor-pointer">
-                                                <input type="radio" name="mood" value="{{ $mood }}" class="radio radio-sm radio-primary hidden peer" />
-                                                <span class="btn btn-sm btn-outline peer-checked:btn-primary">{{ $mood }}</span>
-                                            </label>
-                                        @endforeach
                                     </div>
-                                </div>
-
-                                <!-- Privacy Toggle -->
-                                <div class="form-control">
-                                    <label class="label cursor-pointer justify-start gap-3">
-                                        <input type="checkbox" name="is_private" class="toggle toggle-primary" checked />
-                                        <span class="label-text">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                            </svg>
-                                            Keep this entry private
-                                        </span>
-                                    </label>
-                                </div>
 
                                 <!-- Submit Button -->
                                 <div class="card-actions justify-end pt-4">
@@ -227,20 +183,6 @@
                                             @if($entry->title)
                                                 <h4 class="font-semibold text-lg">{{ $entry->title }}</h4>
                                             @endif
-                                            <p class="text-sm opacity-60 mb-2">
-                                                {{ $entry->created_at->format('F j, Y • g:i A') }}
-                                                @if($entry->mood)
-                                                    <span class="ml-2">{{ $entry->mood }}</span>
-                                                @endif
-                                            </p>
-                                            <p class="line-clamp-3">{{ Str::limit($entry->content, 200) }}</p>
-                                            @if($entry->tags)
-                                                <div class="flex flex-wrap gap-2 mt-2">
-                                                    @foreach(explode(',', $entry->tags) as $tag)
-                                                        <span class="badge badge-sm badge-outline">{{ trim($tag) }}</span>
-                                                    @endforeach
-                                                </div>
-                                            @endif
                                         </div>
                                         <div class="dropdown dropdown-end">
                                             <label tabindex="0" class="btn btn-ghost btn-sm btn-circle">
@@ -252,11 +194,16 @@
                                                 <li><a href="{{ route('journal.show', $entry->id) }}">View Full Entry</a></li>
                                                 <li><a href="{{ route('journal.edit', $entry->id) }}">Edit</a></li>
                                                 <li>
-                                                    <form method="POST" action="{{ route('journal.destroy', $entry->id) }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="text-error" onclick="return confirm('Are you sure you want to delete this entry?')">Delete</button>
-                                                    </form>
+                                                  <form method="POST" action="{{ route('journal.destroy', $entry->id) }}" onsubmit="return confirm('Are you sure you want to delete this entry? This action cannot be undone.');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-error w-full text-left">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                            Delete Entry
+                                        </button>
+                                    </form>
                                                 </li>
                                             </ul>
                                         </div>
