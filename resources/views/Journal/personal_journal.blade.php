@@ -1,16 +1,29 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-3xl text-base-content leading-tight">
-            📔 MindDiary- Your Personal Journal
-        </h2>
-    </x-slot>
+     <section class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
+        <div class="mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-base-content mb-4">
+                Welcome to <span class="text-primary">MindDiary</span>
+            </h1>
+            <p class="text-lg text-base-content/70 max-w-2xl mx-auto">
+               Capture your thoughts, reflect on your day, and track your personal growth journey.
+            </p>
+        </div>
+    </section>
+    <section class="max-w-4xl mx-auto px-6 mb-12">
+        <div class="bg-base-100 text-base-content rounded-3xl p-8 shadow-xl border-2 border-primary">
+            <h2 class="text-2xl font-semibold text-base-content mb-3">About MindDiary</h2>
+            <p class="text-base-content/70 leading-relaxed">
+                <i><b>MindDiary</b> is your private space to think, feel, and heal through words.Here, you can jot down your thoughts, emotions, and daily reflections — honestly, freely, and without judgment.</i>
+            </p>
+        </div>
+    </section>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="card bg-gradient-to-r from-primary to-secondary text-primary-content shadow-xl mb-6">
                 <div class="card-body">
-                    <h2 class="card-title text-2xl">Welcome to MindDiary, {{ Auth::user()->name }}!</h2>
-                    <p class="opacity-90">Capture your thoughts, reflect on your day, and track your personal growth journey.</p>
+                    <h2 class="card-title text-2xl">Hello, {{ Auth::user()->name }}!</h2>
+                    
                 </div>
             </div>
 
@@ -70,8 +83,6 @@
                                         </label>
                                     @enderror
                                     </div>
-
-                                <!-- Submit Button -->
                                 <div class="card-actions justify-end pt-4">
                                     <button type="submit" class="btn btn-primary">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,7 +96,7 @@
                     </div>
                 </div>
 
-                <!-- Sidebar -->
+                
                 <div class="space-y-6">
                     <!-- Journal Stats -->
                     <div class="card bg-base-100 shadow-xl">
@@ -115,8 +126,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Writing Prompts -->
                     <div class="card bg-base-100 shadow-xl">
                         <div class="card-body">
                             <h3 class="card-title text-lg">
@@ -149,8 +158,6 @@
                             </ul>
                         </div>
                     </div>
-
-                    <!-- Quick Tips -->
                     <div class="alert alert-info">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -163,7 +170,6 @@
                 </div>
             </div>
 
-            <!-- Recent Entries -->
             <div class="mt-8">
                 <div class="card bg-base-100 shadow-xl">
                     <div class="card-body">
@@ -222,6 +228,12 @@
                 </div>
             </div>
         </div>
+        <div class="text-center">
+                <a href="{{ route('dashboard') }}" 
+                   class="btn btn-outline btn-wide rounded-xl mt-4">
+                    ← Back to MindInsight
+                </a>
+            </div>
     </div>
 
     <script>

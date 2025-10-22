@@ -1,14 +1,23 @@
 <x-app-layout>
-    <x-slot name="title">MindEase</x-slot>
-    
-    <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <div>
-                <h2 class="text-2xl font-bold text-primary">MindEase</h2>
-                <p class="text-sm opacity-70">Take a moment to breathe and find your calm with <b>MindEase</b></p>
-            </div>
+    <section class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
+        <div class="mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-base-content mb-4">
+                Welcome to <span class="text-primary">MindEase</span>
+            </h1>
+            <p class="text-lg text-base-content/70 max-w-2xl mx-auto">
+               <b>MindEase</b> is your pocket-sized calm zone — a space within MindScope designed to help you slow down, breathe, and reset. 🌙
+            </p>
         </div>
-    </x-slot>
+    </section>
+    <section class="max-w-4xl mx-auto px-6 mb-12">
+        <div class="bg-base-100 text-base-content rounded-3xl p-8 shadow-xl border-2 border-primary">
+            <h2 class="text-2xl font-semibold text-base-content mb-3">About MindEase</h2>
+            <p class="text-base-content/70 leading-relaxed">
+               <i>In a world that’s always rushing, MindEase gives you the tools to pause.
+With guided box breathing exercises, grounding techniques, and mindfulness sessions, it helps you manage anxiety, stay present, and find mental balance in moments of stress.</i>
+            </p>
+        </div>
+    </section>
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">

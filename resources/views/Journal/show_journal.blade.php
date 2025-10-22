@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-3xl text-base-content leading-tight">
-                📖 Journal Entry
+                Journal Entry
             </h2>
             <a href="{{ route('journal.index') }}" class="btn btn-ghost btn-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -26,7 +26,6 @@
 
             <div class="card bg-base-100 shadow-xl">
                 <div class="card-body">
-                    <!-- Header -->
                     <div class="flex justify-between items-start mb-6">
                         <div class="flex-1">
                             @if($journal->title)
@@ -88,13 +87,9 @@
 
                     <div class="divider"></div>
 
-                    <!-- Content -->
                     <div class="prose max-w-none">
                         <p class="whitespace-pre-wrap text-base leading-relaxed">{{ $journal->content }}</p>
                     </div>
-
-
-                    <!-- Updated info -->
                     @if($journal->updated_at != $journal->created_at)
                         <div class="text-xs opacity-50 mt-6">
                             Last updated: {{ $journal->updated_at->diffForHumans() }}
@@ -102,8 +97,6 @@
                     @endif
                 </div>
             </div>
-
-            <!-- Navigation -->
             <div class="flex justify-between mt-6">
                 <a href="{{ route('journal.index') }}" class="btn btn-outline">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -1,19 +1,23 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <div>
-                <h2 class="text-2xl font-bold text-primary">
-                    {{ __('Welcome to MindMirror') }}
-                </h2>
-                <p class="text-sm opacity-70">
-                    <b>MindMirror</b> shows your weekly mood report trends from 
-                    <span class="font-medium">{{ $startDate->format('M j') }}</span> 
-                    to 
-                    <span class="font-medium">{{ $endDate->format('M j, Y') }}</span>
-                </p>
-            </div>
+  <section class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
+        <div class="mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-base-content mb-4">
+                Welcome to <span class="text-primary">MindMirror</span>
+            </h1>
+            <p class="text-lg text-base-content/70 max-w-2xl mx-auto">
+               Track your highs, lows, and everything in between.See what drives your peace, what fuels your stress, and how your habits shape your mental rhythm.
+            </p>
         </div>
-    </x-slot>
+    </section>
+    <section class="max-w-4xl mx-auto px-6 mb-12">
+        <div class="bg-base-100 text-base-content rounded-3xl p-8 shadow-xl border-2 border-primary">
+            <h2 class="text-2xl font-semibold text-base-content mb-3">About MindMirror</h2>
+            <p class="text-base-content/70 leading-relaxed">
+                <i>Through weekly mood reports, trend graphs, and progress summaries, <b>MindMirror</b> shows you how your mental state shifts over time.
+You’ll start noticing what lifts your spirit, what drains your energy, and how small habits ripple into big emotional changes.Because self-awareness isn’t guesswork — it’s data with empathy.<b>MindMirror</b> empowers you to understand your mind like never before — with clarity, color, and compassion.</i>
+            </p>
+        </div>
+    </section>
 
     <div class="py-8">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

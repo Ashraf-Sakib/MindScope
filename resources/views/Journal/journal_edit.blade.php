@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-3xl text-base-content leading-tight">
-            ✏️ Edit Journal Entry
+             Edit Journal Entry
         </h2>
     </x-slot>
 
@@ -35,8 +35,6 @@
                                 </label>
                             @enderror
                         </div>
-
-                        <!-- Content -->
                         <div class="form-control">
                             <label for="content" class="label">
                                 <span class="label-text font-medium">What's on your mind?</span>
@@ -56,8 +54,6 @@
                                 </label>
                             @enderror
                         </div>
-
-                        <!-- Submit Button -->
                         <div class="card-actions justify-end pt-4">
                             <button type="submit" class="btn btn-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
