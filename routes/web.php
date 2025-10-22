@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\WizardCatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,7 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile-info-update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
-    Route::get('/weekly-report', [MoodController::class, 'weeklyReport'])->name('weekly.report');
+    Route::get('/weekly-report', [ReportController::class, 'weeklyReport'])->name('weekly.report');
     Route::get('/relief', [MoodController::class, 'relief'])->name('relief');
     Route::post('/wizard-cat/respond', [WizardCatController::class, 'chat'])
         ->name('wizard-cat.respond');

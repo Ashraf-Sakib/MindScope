@@ -69,8 +69,8 @@
                 <p class="text-sm text-base-content font-medium mt-2">This is your safe space. Write as much or as little as you'd like.</p>
             </div>
             <div class="mt-8 text-center">
-                <button type="submit" class="btn btn-dash btn-secondary">
-                    💾 Save Mood Entry
+                <button type="submit" class="btn btn-outline btn-wide rounded-xl mt-4">
+                     Save Mood Entry
                 </button>
             </div>
         </form>
@@ -81,9 +81,12 @@
         <div class="bg-base-100 rounded-2xl p-8 border-2 border-warning shadow-lg">
             <h3 class="text-xl font-semibold text-base-content mb-3">View Your Progress</h3>
             <p class="text-base-content font-medium mb-6">Check your mood history and see patterns emerge over time</p>
-            <a href="{{ route('dashboard') }}" class="inline-block bg-success hover:bg-success/80 text-white text-lg py-4 px-10 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 active:scale-95 border-2 border-success">
-                Go to MindInsight
-            </a>
+            <div class="text-center">
+                <a href="{{ route('dashboard') }}" 
+                   class="btn btn-outline btn-wide rounded-xl mt-4">
+                    ← Back to MindInsight
+                </a>
+            </div>
         </div>
     </section>
 </x-app-layout>

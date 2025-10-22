@@ -5,38 +5,177 @@
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-bold text-primary">MindEase</h2>
-                <p class="text-sm opacity-70">Take a moment to breathe and find your calm with <b>MindEase</i></b>
+                <p class="text-sm opacity-70">Take a moment to breathe and find your calm with <b>MindEase</b></p>
             </div>
         </div>
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-            <div class="card bg-base-100 shadow-lg rounded-3xl p-8 text-center relative overflow-hidden">
-                <h1 class="text-3xl font-bold mb-2">Box Breathing 🫁</h1>
-                <p class="text-sm opacity-70 mb-6">Follow the animation below to balance your breath and ease your mind.</p>
-                <div class="flex flex-col items-center mb-8">
-                    <img id="lungs" src="{{ asset('images/Lungs.png') }}" alt="Lungs" class="w-40 h-40" />
-                    <p id="breath-text" class="text-2xl font-semibold text-primary mt-6">Inhale...</p>
-                </div>
-                <div class="bg-base-100 rounded-2xl p-6 border border-base-300">
-                    <p id="quote-text" class="text-lg italic opacity-80">Take a deep breath...</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+            
+            <div class="card bg-base-100 text-base-content border-2 border-primary shadow-xl">
+                <div class="card-body p-0 grid grid-cols-1 md:grid-cols-2">
+                    <div class="flex flex-col items-center justify-center p-8 bg-gradient-to-br from-primary/10 to-secondary/10">
+                        <img id="lungs" src="{{ asset('images/Lungs.png') }}" alt="Lungs" class="w-64 h-64 object-contain" />
+                        <p id="breath-text" class="text-3xl font-bold text-primary mt-6">Inhale</p>
+                        <p id="countdown" class="text-6xl font-bold text-primary mt-4">4</p>
+                    </div>
+            
+                    <div class="flex flex-col justify-center p-8 space-y-6">
+                        <div>
+                            <h1 class="text-3xl font-bold mb-2 text-success">Box Breathing 🫁</h1>
+                            <p class="text-sm opacity-70">Follow the animation to balance your breath and ease your mind.</p>
+                        </div>
+                        
+                        <div class="bg-base-200 rounded-2xl p-6 border border-base-300">
+                            <p id="quote-text" class="text-lg italic opacity-80">"Take a deep breath..."</p>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <p class="font-semibold">How it works:</p>
+                            <ul class="text-sm opacity-70 space-y-1 list-disc list-inside">
+                                <li>Inhale for 4 seconds</li>
+                                <li>Hold for 4 seconds</li>
+                                <li>Exhale for 4 seconds</li>
+                                <li>Hold for 4 seconds</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card bg-base-100 shadow-lg rounded-3xl p-8">
-                <h2 class="text-2xl font-bold mb-3 text-success">🌱 Grounding Technique</h2>
-                <p class="opacity-70 mb-4">Reconnect with the present moment by focusing on your senses.</p>
+            <div class="card bg-base-100 text-base-content border-2 border-success shadow-xl">
+                <div class="card-body p-0 grid grid-cols-1 md:grid-cols-2">
+                    <div class="flex items-center justify-center  bg-base-100">
+                        <img src="{{ asset('images/ground.png') }}" alt="Grounding" class="w-full h-full object-contain rounded-xl"/>
+                    </div>
+                    <div class="flex flex-col justify-center p-8 space-y-4">
+                        <div>
+                            <h2 class="text-2xl font-bold mb-2 text-success">Grounding Technique</h2>
+                            <p class="opacity-70">Reconnect with the present moment by focusing on your senses.</p>
+                        </div>
 
-                <div class="space-y-4">
-                    <div class="alert alert-success"><span class="font-semibold">5 things you can see</span></div>
-                    <div class="alert alert-success"><span class="font-semibold">4 things you can touch</span></div>
-                    <div class="alert alert-success"><span class="font-semibold">3 things you can hear</span></div>
-                    <div class="alert alert-success"><span class="font-semibold">2 things you can smell</span></div>
-                    <div class="alert alert-success"><span class="font-semibold">1 thing you can taste</span></div>
+                        <div class="space-y-3">
+                            <div class="alert alert-success">
+                                <span class="font-semibold">5 things you can see</span>
+                            </div>
+                            <div class="alert alert-success">
+                                <span class="font-semibold">4 things you can touch</span>
+                            </div>
+                            <div class="alert alert-success">
+                                <span class="font-semibold">3 things you can hear</span>
+                            </div>
+                            <div class="alert alert-success">
+                                <span class="font-semibold">2 things you can smell</span>
+                            </div>
+                            <div class="alert alert-success">
+                                <span class="font-semibold">1 thing you can taste</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Back Button -->
+          <div class="card bg-base-100 text-base-content border-2 border-info shadow-xl">
+                <div class="card-body p-0 grid grid-cols-1 md:grid-cols-2">
+                    <div class="flex items-center justify-center bg-base-100 ">
+                        <img src="{{ asset('images/mindful.png') }}" alt="Meditation" class="w-full h-full object-cover md:object-contain rounded-l-xl"/>
+                    </div>
+                
+                    <div class="flex flex-col justify-center p-8 space-y-6">
+                        <div>
+                            <h2 class="text-2xl font-bold mb-2 text-success">Daily Mindfulness</h2>
+                            <p class="opacity-70">Watch these videos for your daily mindfulness</p>
+                        </div>
+                        
+                        <div class="carousel w-full rounded-xl bg-base-200 overflow-hidden">
+                            <div id="video1" class="carousel-item relative w-full">
+                                <div class="w-full aspect-video">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/ZToicYcHIOU" 
+                                        title="Mindfulness Meditation"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen
+                                        loading="lazy"
+                                        class="w-full h-full">
+                                    </iframe>
+                                </div>
+                                <div class="absolute flex justify-between transform -translate-y-1/2 left-4 right-4 top-1/2">
+                                    <a href="#video5" class="btn btn-circle btn-sm btn-primary">❮</a>
+                                    <a href="#video2" class="btn btn-circle btn-sm btn-primary">❯</a>
+                                </div>
+                            </div>
+                            <div id="video2" class="carousel-item relative w-full">
+                                <div class="w-full aspect-video">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/7-jJqXU25wo" 
+                                        title="5-Minute Breathing Meditation"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen
+                                        loading="lazy"
+                                        class="w-full h-full">
+                                    </iframe>
+                                </div>
+                                <div class="absolute flex justify-between transform -translate-y-1/2 left-4 right-4 top-1/2">
+                                    <a href="#video1" class="btn btn-circle btn-sm btn-primary">❮</a>
+                                    <a href="#video3" class="btn btn-circle btn-sm btn-primary">❯</a>
+                                </div>
+                            </div>
+                            <div id="video3" class="carousel-item relative w-full">
+                                <div class="w-full aspect-video">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/uumInvT4t9Y" 
+                                        title="Guided Relaxation"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen
+                                        loading="lazy"
+                                        class="w-full h-full">
+                                    </iframe>
+                                </div>
+                                <div class="absolute flex justify-between transform -translate-y-1/2 left-4 right-4 top-1/2">
+                                    <a href="#video2" class="btn btn-circle btn-sm btn-primary">❮</a>
+                                    <a href="#video4" class="btn btn-circle btn-sm btn-primary">❯</a>
+                                </div>
+                            </div>
+                            <div id="video4" class="carousel-item relative w-full">
+                                <div class="w-full aspect-video">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/pAEioF7FaWY" 
+                                        title="Sleep Meditation"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen
+                                        loading="lazy"
+                                        class="w-full h-full">
+                                    </iframe>
+                                </div>
+                                <div class="absolute flex justify-between transform -translate-y-1/2 left-4 right-4 top-1/2">
+                                    <a href="#video3" class="btn btn-circle btn-sm btn-primary">❮</a>
+                                    <a href="#video5" class="btn btn-circle btn-sm btn-primary">❯</a>
+                                </div>
+                            </div>
+                            <div id="video5" class="carousel-item relative w-full">
+                                <div class="w-full aspect-video">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/sG7DBA-mgFY" 
+                                        title="Meditation Music"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen
+                                        loading="lazy"
+                                        class="w-full h-full">
+                                    </iframe>
+                                </div>
+                                <div class="absolute flex justify-between transform -translate-y-1/2 left-4 right-4 top-1/2">
+                                    <a href="#video4" class="btn btn-circle btn-sm btn-primary">❮</a>
+                                    <a href="#video1" class="btn btn-circle btn-sm btn-primary">❯</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="text-center">
                 <a href="{{ route('dashboard') }}" 
                    class="btn btn-outline btn-wide rounded-xl mt-4">
@@ -46,10 +185,10 @@
         </div>
     </div>
 
-    <!-- Breathing Script -->
     <script>
         const lungs = document.getElementById('lungs');
         const breathText = document.getElementById('breath-text');
+        const countdown = document.getElementById('countdown');
         const quoteText = document.getElementById('quote-text');
 
         const quotes = [
@@ -71,25 +210,37 @@
 
         function boxBreathing() {
             let cycle = 0;
-
-            function step() {
+            let count = 4;
+            
+            function updateCountdown() {
+                countdown.textContent = count;
+                count--;
+                
+                if (count < 0) {
+                    count = 4;
+                    cycle++;
+                    updatePhase();
+                }
+            }
+            
+            function updatePhase() {
                 if (cycle % 4 === 0) {
-                    breathText.textContent = "Inhale (4s)...";
+                    breathText.textContent = "Inhale";
                     lungs.style.transform = "scale(1.2)";
                 } else if (cycle % 4 === 1) {
-                    breathText.textContent = "Hold (4s)...";
+                    breathText.textContent = "Hold";
                 } else if (cycle % 4 === 2) {
-                    breathText.textContent = "Exhale (4s)...";
+                    breathText.textContent = "Exhale";
                     lungs.style.transform = "scale(1)";
                 } else {
-                    breathText.textContent = "Hold (4s)...";
+                    breathText.textContent = "Hold";
                     randomQuote();
                 }
-                cycle++;
             }
 
-            step();
-            setInterval(step, 4000);
+            updatePhase();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
         }
 
         boxBreathing();
@@ -99,6 +250,10 @@
         #lungs {
             transition: transform 4s ease-in-out;
             transform-origin: center;
+        }
+        
+        #countdown {
+            font-variant-numeric: tabular-nums;
         }
     </style>
 </x-app-layout>
