@@ -1,9 +1,8 @@
 import './bootstrap';
 import { themeChange } from 'theme-change';
 
-console.log('✨ MindScope loaded successfully!');
+console.log(' MindScope loaded successfully!');
 
-// List of all available DaisyUI themes
 const availableThemes = [
     'light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate', 
     'synthwave', 'retro', 'cyberpunk', 'valentine', 'halloween', 'garden',
@@ -21,7 +20,7 @@ function applyTheme(themeName) {
         selector.value = themeName;
     }
 
-    console.log('🎨 Theme applied:', themeName);
+    console.log(' Theme applied:', themeName);
 }
 
 function populateThemeSelector() {
@@ -30,8 +29,6 @@ function populateThemeSelector() {
 
     const currentTheme = localStorage.getItem('theme') || 'light';
     selector.innerHTML = '';
-
-    // Populate with all available themes
     availableThemes.forEach(theme => {
         const option = document.createElement('option');
         option.value = theme;
@@ -44,21 +41,16 @@ function populateThemeSelector() {
         applyTheme(this.value);
     });
 
-    console.log('✅ Theme selector populated with', availableThemes.length, 'themes');
+    console.log(' Theme selector populated with', availableThemes.length, 'themes');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize theme-change library
     themeChange(false);
-
-    // Apply saved theme or default to light
     const savedTheme = localStorage.getItem('theme') || 'light';
     applyTheme(savedTheme);
-
-    // Populate theme selector
     populateThemeSelector();
 
-    console.log('🚀 Theme system initialized');
+    console.log('Theme system initialized');
 });
 
 window.changeTheme = function (themeName) {
@@ -69,7 +61,7 @@ window.selectQuickMood = function (mood, event) {
     const select = document.getElementById('mood-select');
     if (select) {
         select.value = mood;
-        console.log('😊 Mood selected:', mood);
+        console.log(' Mood selected:', mood);
 
         const buttons = document.querySelectorAll('[onclick^="selectQuickMood"]');
         buttons.forEach(btn => {
@@ -93,12 +85,12 @@ window.saveMood = function () {
     const details = document.getElementById('mood-details')?.value;
 
     if (!mood) {
-        alert('⚠️ Please select a mood first!');
+        alert(' Please select a mood first!');
         return;
     }
 
-    console.log('💾 Saving mood:', { mood, details });
-    alert(`✅ Mood saved!\n\nMood: ${mood}\nDetails: ${details || 'None'}`);
+    console.log('Saving mood:', { mood, details });
+    alert(` Mood saved!\n\nMood: ${mood}\nDetails: ${details || 'None'}`);
 
     const select = document.getElementById('mood-select');
     const textarea = document.getElementById('mood-details');

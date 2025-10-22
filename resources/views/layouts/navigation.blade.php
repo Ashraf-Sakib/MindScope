@@ -1,7 +1,7 @@
 <div class="navbar bg-base-100 shadow-lg">
     <div class="navbar-start">
         <div class="dropdown">
-            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+            <div tabindex="0" role="button" class="btn btn-ghost">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
                 </svg>
@@ -24,25 +24,10 @@
             <span class="font-bold">MindScope</span>
         </a>
     </div>
-    <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-            <li>
-                <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                    MindInsight
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('home') }}" class="{{ request()->routeIs('welcome') ? 'active' : '' }}">
-                    MindHaven
-                </a>
-            </li>
-        </ul>
-    </div>
     <div class="navbar-end gap-2">
         <div class="flex items-center">
             <label for="theme-selector" class="sr-only">Choose Theme</label>
             <select id="theme-selector" class="select select-bordered select-sm w-32">
-                <!-- Options will be populated by JavaScript -->
                 <option value="light">Light</option>
                 <option value="dark">Dark</option>
             </select>

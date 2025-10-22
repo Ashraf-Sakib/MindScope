@@ -127,16 +127,15 @@ class JournalController extends Controller
         $daysDiff = $currentDate->diffInDays($latestEntry->created_at->startOfDay());
         
         if ($daysDiff > 1) {
-            return 0; // Streak broken
+            return 0; 
         }
         
-        // Count consecutive days
         $dates = $entries->pluck('created_at')->map(function ($date) {
             return $date->format('Y-m-d');
         })->unique()->values();
         
         foreach ($dates as $index => $date) {
-            $entryDate = Carbon::parse($date);
+            $entryDate = Carbon::parse(time: $date);
             $expectedDate = Carbon::today()->subDays($index);
             
             if ($entryDate->format('Y-m-d') === $expectedDate->format('Y-m-d')) {

@@ -1,11 +1,11 @@
 <x-app-layout>
-    <x-slot name="title">Instant Relief</x-slot>
+    <x-slot name="title">MindEase</x-slot>
     
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-2xl font-bold text-primary">Instant Relief</h2>
-                <p class="text-sm opacity-70">Take a moment to breathe and find your calm.</p>
+                <h2 class="text-2xl font-bold text-primary">MindEase</h2>
+                <p class="text-sm opacity-70">Take a moment to breathe and find your calm with <b>MindEase</i></b>
             </div>
         </div>
     </x-slot>
@@ -28,11 +28,11 @@
                 <p class="opacity-70 mb-4">Reconnect with the present moment by focusing on your senses.</p>
 
                 <div class="space-y-4">
-                    <div class="alert alert-success"><span class="font-semibold">👀 5 things you can see</span></div>
-                    <div class="alert alert-success"><span class="font-semibold">🤲 4 things you can touch</span></div>
-                    <div class="alert alert-success"><span class="font-semibold">👂 3 things you can hear</span></div>
-                    <div class="alert alert-success"><span class="font-semibold">👃 2 things you can smell</span></div>
-                    <div class="alert alert-success"><span class="font-semibold">👅 1 thing you can taste</span></div>
+                    <div class="alert alert-success"><span class="font-semibold">5 things you can see</span></div>
+                    <div class="alert alert-success"><span class="font-semibold">4 things you can touch</span></div>
+                    <div class="alert alert-success"><span class="font-semibold">3 things you can hear</span></div>
+                    <div class="alert alert-success"><span class="font-semibold">2 things you can smell</span></div>
+                    <div class="alert alert-success"><span class="font-semibold">1 thing you can taste</span></div>
                 </div>
             </div>
 
@@ -40,7 +40,7 @@
             <div class="text-center">
                 <a href="{{ route('dashboard') }}" 
                    class="btn btn-outline btn-wide rounded-xl mt-4">
-                    ← Back to Dashboard
+                    ← Back to MindInsight
                 </a>
             </div>
         </div>

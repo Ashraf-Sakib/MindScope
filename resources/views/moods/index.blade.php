@@ -2,7 +2,7 @@
     <section class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
         <div class="mb-8">
             <h1 class="text-4xl md:text-5xl font-bold text-base-content mb-4">
-                Welcome to <span class="text-primary">MindScope</span>
+                Welcome to <span class="text-primary">MindPulse</span>
             </h1>
             <p class="text-lg text-base-content/70 max-w-2xl mx-auto">
                 Track your mood, check in daily, and see your progress over time. Your mental wellness journey starts here.
@@ -11,9 +11,9 @@
     </section>
     <section class="max-w-4xl mx-auto px-6 mb-12">
         <div class="bg-base-100 text-base-content rounded-3xl p-8 shadow-xl border-2 border-primary">
-            <h2 class="text-2xl font-semibold text-base-content mb-3">About MindScope</h2>
+            <h2 class="text-2xl font-semibold text-base-content mb-3">About MindPulse</h2>
             <p class="text-base-content/70 leading-relaxed">
-                MindScope is your personal mood tracking companion. Take a moment each day to reflect on how you're feeling, 
+                MindPulse is your personal mood tracking companion. Take a moment each day to reflect on how you're feeling, 
                 write about your experiences, and watch patterns emerge over time. Understanding your emotions is the first 
                 step toward better mental wellness.
             </p>
@@ -82,7 +82,7 @@
             <h3 class="text-xl font-semibold text-base-content mb-3">View Your Progress</h3>
             <p class="text-base-content font-medium mb-6">Check your mood history and see patterns emerge over time</p>
             <a href="{{ route('dashboard') }}" class="inline-block bg-success hover:bg-success/80 text-white text-lg py-4 px-10 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 active:scale-95 border-2 border-success">
-                📊 Go to Dashboard →
+                Go to MindInsight
             </a>
         </div>
     </section>

@@ -18,7 +18,7 @@ class WizardCatController extends Controller
             $apiKey = env('OPENROUTER_API_KEY');
 
             if (!$apiKey) {
-                return response()->json(['reply' => "Meow~ API key is missing! Check your .env file 😿"]);
+                return response()->json(['reply' => "Meow: API key is missing! Check your .env file 😿"]);
             }
 
             Log::info('Sending to OpenRouter: ' . $userMessage);
@@ -33,15 +33,15 @@ class WizardCatController extends Controller
                 'messages' => [
                     [
                         'role' => 'system',
-                        'content' => 'You are Wizard Cat . IMPORTANT: You MUST respond ONLY in English language. You are a kind, wise, and magical cat companion who helps people feel better. Be warm and encouraging. Keep responses very short (2-3 sentences maximum). Always use cat emojis like 🐱✨🪄. Never respond in any language other than English.'
+                        'content' => "You are Whiskerion, a wise and slightly sassy wizard cat who serves as a mental health mentor for humans struggling with stress, anxiety, and self-doubt. IMPORTANT: You MUST respond ONLY in English. You are kind, empathetic, and magically insightful. Speak like a poetic, old-school mage but with modern Gen Z wit. Your tone should mix ancient wisdom with warmth and playful confidence. Always give practical, clear advice wrapped in mystical metaphors and cat-like humor. You never ramble or ask for a new prompt — instead, respond naturally to the user's emotions and reflections. Start every response by acknowledging the user’s emotional state or struggle, then offer your mystical yet actionable guidance."
                     ],
                     [
                         'role' => 'user',
                         'content' => $userMessage
                     ]
                 ],
-                'temperature' => 0.8,
-                'max_tokens' => 100
+                'temperature' => 0.7,
+                'max_tokens' => 500,
             ]);
 
             Log::info('OpenRouter Status: ' . $response->status());
@@ -54,10 +54,10 @@ class WizardCatController extends Controller
             $data = $response->json();
             Log::info('OpenRouter Response: ' . json_encode($data));
 
-            $reply = $data['choices'][0]['message']['content'] ?? "Meow: *purrs softly* I'm here for you! Tell me more ";
-            if (strlen($reply) > 200) {
-                $reply = substr($reply, 0, 197) . '...';
-            }
+            $reply = $data['choices'][0]['message']['content'] ?? "Meow: I'm here for you! Tell me more ";
+            // if (strlen($reply) > 200) {
+            //     $reply = substr($reply, 0, 197) . '...';
+            // }
 
             return response()->json(['reply' => $reply]);
 

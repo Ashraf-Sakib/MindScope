@@ -3,10 +3,10 @@
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-bold text-primary">
-                    {{ __('Weekly Mood Report') }}
+                    {{ __('MindMirror') }}
                 </h2>
                 <p class="text-sm opacity-70">
-                    Your mood trends from 
+                    Your weekly mood report trends from 
                     <span class="font-medium">{{ now()->subWeek()->format('M j') }}</span> 
                     to 
                     <span class="font-medium">{{ now()->format('M j, Y') }}</span>
@@ -14,7 +14,7 @@
             </div>
             <a href="{{ route('dashboard') }}" 
                class="btn btn-outline btn-sm rounded-xl">
-                ← Back to Dashboard
+                ← Back to MindInsight
             </a>
         </div>
     </x-slot>

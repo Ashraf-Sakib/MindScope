@@ -6,7 +6,7 @@
       <div class="card bg-base-100 text-base-content shadow-xl">
         <div class="card-body">
           <p class="text-base-content/70">
-            Welcome back, {{ Auth::user()->name }}! ✨<br>
+            Welcome back, <b>{{ Auth::user()->name }}!</b> ✨<br>
             Track your mood, reflect on your week, and chat with Wizard Cat for motivation 🐱🪄
           </p>
         </div>
