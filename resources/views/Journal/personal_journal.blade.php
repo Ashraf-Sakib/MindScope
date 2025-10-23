@@ -237,7 +237,6 @@
     </div>
 
     <script>
-        // Character counter
         const textarea = document.getElementById('content');
         const charCount = document.getElementById('char-count');
         
