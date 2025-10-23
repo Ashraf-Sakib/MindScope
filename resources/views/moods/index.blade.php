@@ -13,9 +13,9 @@
         <div class="bg-base-100 text-base-content rounded-3xl p-8 shadow-xl border-2 border-primary">
             <h2 class="text-2xl font-semibold text-base-content mb-3">About MindPulse</h2>
             <p class="text-base-content/70 leading-relaxed">
-                MindPulse is your personal mood tracking companion. Take a moment each day to reflect on how you're feeling, 
+                <i><b>MindPulse</b> is your personal mood tracking companion. Take a moment each day to reflect on how you're feeling, 
                 write about your experiences, and watch patterns emerge over time. Understanding your emotions is the first 
-                step toward better mental wellness.
+                step toward better mental wellness.</i>
             </p>
         </div>
     </section>

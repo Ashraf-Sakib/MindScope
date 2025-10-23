@@ -43,10 +43,10 @@ With guided box breathing exercises, grounding techniques, and mindfulness sessi
                         <div class="space-y-2">
                             <p class="font-semibold">How it works:</p>
                             <ul class="text-sm opacity-70 space-y-1 list-disc list-inside">
-                                <li>Inhale for 4 seconds</li>
-                                <li>Hold for 4 seconds</li>
-                                <li>Exhale for 4 seconds</li>
-                                <li>Hold for 4 seconds</li>
+                                <li>Inhale for 5 seconds</li>
+                                <li>Hold for 5 seconds</li>
+                                <li>Exhale for 5 seconds</li>
+                                <li>Hold for 5 seconds</li>
                             </ul>
                         </div>
                     </div>
@@ -193,71 +193,83 @@ With guided box breathing exercises, grounding techniques, and mindfulness sessi
             </div>
         </div>
     </div>
+<script>
+    const lungs = document.getElementById('lungs');
+    const breathText = document.getElementById('breath-text');
+    const countdown = document.getElementById('countdown');
+    const quoteText = document.getElementById('quote-text');
 
-    <script>
-        const lungs = document.getElementById('lungs');
-        const breathText = document.getElementById('breath-text');
-        const countdown = document.getElementById('countdown');
-        const quoteText = document.getElementById('quote-text');
+    const quotes = [
+        "You are stronger than you think.",
+        "One step at a time.",
+        "Breathe. Relax. Reset.",
+        "Your mind deserves a break.",
+        "Calmness is a superpower.",
+        "This too shall pass.",
+        "You've survived 100% of your bad days.",
+        "Progress, not perfection.",
+        "Be gentle with yourself.",
+        "You are doing better than you think.",
+        "Hard times create strong people.",
+        "Keep moving forward, no matter how slow.",
+        "Courage creates change.",
+        "Be brave enough to begin."
+    ];
 
-        const quotes = [
-            "You are stronger than you think.",
-            "One step at a time.",
-            "Breathe. Relax. Reset.",
-            "Your mind deserves a break.",
-            "Calmness is a superpower.",
-            "This too shall pass.",
-            "You've survived 100% of your bad days.",
-            "Progress, not perfection.",
-            "Be gentle with yourself.",
-            "You are doing better than you think."
-        ];
+    function randomQuote() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        quoteText.textContent = `"${quotes[randomIndex]}"`;
+    }
 
-        function randomQuote() {
-            quoteText.textContent = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`;
+    randomQuote();
+
+    function boxBreathing() {
+        let cycle = 0;
+        let count = 5;  
+        
+        function updateCountdown() {
+            countdown.textContent = count;
+            count--;
+            
+            if (count < 1) {
+                count = 5;  
+                cycle++;
+                updatePhase();
+            }
+        }
+        
+        function updatePhase() {
+            if (cycle % 4 === 0) {
+                breathText.textContent = "Inhale";
+                breathText.className = "text-3xl font-bold text-info mt-6";
+                lungs.style.transform = "scale(1.3)";
+                randomQuote(); 
+            } else if (cycle % 4 === 1) {
+                breathText.textContent = "Hold";
+                breathText.className = "text-3xl font-bold text-warning mt-6";
+                randomQuote();
+            } else if (cycle % 4 === 2) {
+                breathText.textContent = "Exhale";
+                breathText.className = "text-3xl font-bold text-success mt-6";
+                lungs.style.transform = "scale(1)";
+                randomQuote();
+            } else {
+                breathText.textContent = "Hold";
+                breathText.className = "text-3xl font-bold text-warning mt-6";
+                randomQuote();
+            }
         }
 
-        function boxBreathing() {
-            let cycle = 0;
-            let count = 4;
-            
-            function updateCountdown() {
-                countdown.textContent = count;
-                count--;
-                
-                if (count < 0) {
-                    count = 4;
-                    cycle++;
-                    updatePhase();
-                }
-            }
-            
-            function updatePhase() {
-                if (cycle % 4 === 0) {
-                    breathText.textContent = "Inhale";
-                    lungs.style.transform = "scale(1.2)";
-                } else if (cycle % 4 === 1) {
-                    breathText.textContent = "Hold";
-                } else if (cycle % 4 === 2) {
-                    breathText.textContent = "Exhale";
-                    lungs.style.transform = "scale(1)";
-                } else {
-                    breathText.textContent = "Hold";
-                    randomQuote();
-                }
-            }
+        updatePhase();
+        setInterval(updateCountdown, 1000);
+    }
 
-            updatePhase();
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        }
-
-        boxBreathing();
-    </script>
+    boxBreathing();
+</script>
 
     <style>
         #lungs {
-            transition: transform 4s ease-in-out;
+            transition: transform 5s ease-in-out;
             transform-origin: center;
         }
         
