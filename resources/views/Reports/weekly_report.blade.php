@@ -27,8 +27,8 @@ You’ll start noticing what lifts your spirit, what drains your energy, and how
                 <div class="card-body p-4">
                     <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div class="flex items-center gap-2">
-                            <a href="{{ route('weekly.report', ['week_offset' => $weekOffset + 1]) }}" 
-                               class="btn btn-circle btn-sm btn-ghost">
+                                    <a href="{{ route('weekly.report', ['week_offset' => $weekOffset + 1]) }}" 
+                                                 class="btn btn-circle btn-sm btn-ghost">
                                 ❮
                             </a>
                             <div class="text-center min-w-[200px]">
@@ -45,8 +45,8 @@ You’ll start noticing what lifts your spirit, what drains your energy, and how
                                     @endif
                                 </p>
                             </div>
-                            <a href="{{ route('weekly.report', ['week_offset' => max(0, $weekOffset - 1)]) }}" 
-                               class="btn btn-circle btn-sm btn-ghost {{ $weekOffset == 0 ? 'btn-disabled' : '' }}">
+                                     <a href="{{ route('weekly.report', ['week_offset' => max(0, $weekOffset - 1)]) }}" 
+                                         class="btn btn-circle btn-sm btn-ghost {{ $weekOffset == 0 ? 'btn-disabled' : '' }}">
                                 ❯
                             </a>
                         </div>
@@ -60,8 +60,8 @@ You’ll start noticing what lifts your spirit, what drains your energy, and how
                                     </option>
                                 @endfor
                             </select>
-                            <a href="{{ route('weekly.report', ['week_offset' => 0]) }}" 
-                               class="btn btn-sm btn-primary">
+                                     <a href="{{ route('weekly.report', ['week_offset' => 0]) }}" 
+                                         class="btn btn-sm btn-primary">
                                 Today
                             </a>
                         </div>
