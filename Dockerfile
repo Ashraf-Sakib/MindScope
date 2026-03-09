@@ -23,7 +23,9 @@ RUN composer dump-autoload --optimize
 
 # Set permissions
 RUN chmod -R 775 storage bootstrap/cache
-RUN chmod +x docker-entrypoint.sh
+
+# Fix Windows line endings in shell script
+RUN sed -i 's/\r$//' docker-entrypoint.sh && chmod +x docker-entrypoint.sh
 
 # Expose port
 EXPOSE 8080
