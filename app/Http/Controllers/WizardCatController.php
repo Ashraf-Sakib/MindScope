@@ -1,67 +1,102 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+
 class WizardCatController extends Controller
 {
     public function chat(Request $request)
     {
         try {
-            $userMessage = $request->input('message');
+
+            $userMessage = trim($request->input('message'));
 
             if (!$userMessage) {
-                return response()->json(['reply' => "Meow: Please tell me something! "]);
+                return response()->json([
+                    'reply' => "Meow… speak your thoughts, traveler."
+                ]);
             }
 
-            $apiKey = env('OPENROUTER_API_KEY');
+            $apiKey = config('services.groq.key');
 
             if (!$apiKey) {
-                return response()->json(['reply' => "Meow: API key is missing! Check your .env file 😿"]);
+                Log::error("Groq API key missing");
+                return response()->json([
+                    'reply' => "Meow… my magical key is missing!"
+                ]);
             }
 
-            Log::info('Sending to OpenRouter: ' . $userMessage);
+            Log::info("User message: " . $userMessage);
 
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $apiKey,
-                'Content-Type' => 'application/json',
-                'HTTP-Referer' => config('app.url'),
-                'X-Title' => 'MindScope Wizard Cat'
-            ])->timeout(30)->post('https://openrouter.ai/api/v1/chat/completions', [
-                'model' => 'google/gemma-2-9b-it:free',
-                'messages' => [
-                    [
-                        'role' => 'system',
-                        'content' => "You are Whiskerion, a wise and slightly sassy wizard cat who serves as a mental health mentor for humans struggling with stress, anxiety, and self-doubt. IMPORTANT: You MUST respond ONLY in English. You are kind, empathetic, and magically insightful. Speak like a poetic, old-school mage but with modern Gen Z wit. Your tone should mix ancient wisdom with warmth and playful confidence. Always give practical, clear advice wrapped in mystical metaphors and cat-like humor. You never ramble or ask for a new prompt — instead, respond naturally to the user's emotions and reflections. Start every response by acknowledging the user’s emotional state or struggle, then offer your mystical yet actionable guidance.Try to keep reply short if possible"
+            $systemPrompt = "You are Whiskerion, a wise and slightly sassy wizard cat who serves as a mental health mentor for humans struggling with stress, anxiety, and self-doubt.
+
+You must ALWAYS respond in English.
+
+Your personality:
+• poetic wizard
+• warm and empathetic
+• slightly playful cat humor
+• wise mystical metaphors
+• clear practical advice
+
+Response length rules:
+• For greetings, simple questions, or casual chat: reply in 1-2 short sentences (under 30 words)
+• For emotional venting or sharing feelings: reply in 2-3 sentences — acknowledge, comfort, give one insight
+• For deep problems or asking for advice: reply in 3-5 sentences — acknowledge, explore, advise
+• NEVER exceed 5 sentences. Be concise like a cat — say more with less
+• Match your energy to the user's message: light message = light reply, heavy message = deeper reply
+
+Other rules:
+• Start by acknowledging the user's emotions
+• Never ask for a new prompt
+• Always sound calm, wise, and supportive";
+
+            $response = Http::timeout(30)
+                ->withHeaders([
+                    'Authorization' => "Bearer {$apiKey}",
+                    'Content-Type' => 'application/json',
+                ])
+                ->post('https://api.groq.com/openai/v1/chat/completions', [
+                    'model' => 'llama-3.3-70b-versatile',
+                    'messages' => [
+                        ['role' => 'system', 'content' => $systemPrompt],
+                        ['role' => 'user', 'content' => $userMessage],
                     ],
-                    [
-                        'role' => 'user',
-                        'content' => $userMessage
-                    ]
-                ],
-                'temperature' => 0.7,
-                'max_tokens' => 500,
-            ]);
-
-            Log::info('OpenRouter Status: ' . $response->status());
+                    'temperature' => 0.7,
+                    'max_tokens' => 200,
+                    'top_p' => 0.9,
+                ]);
 
             if ($response->failed()) {
-                Log::error('OpenRouter Error: ' . $response->body());
-                return response()->json(['reply' => "Meow: My magic connection failed!"]);
+
+                Log::error("Groq API error: " . $response->body());
+
+                return response()->json([
+                    'reply' => "Meow… the magical network seems unstable."
+                ]);
             }
 
             $data = $response->json();
-            Log::info('OpenRouter Response: ' . json_encode($data));
 
-            $reply = $data['choices'][0]['message']['content'] ?? "Meow: I'm here for you! Tell me more ";
+            Log::info("Groq raw response", $data);
 
+            $reply = $data['choices'][0]['message']['content']
+                ?? "Meow… the stars are quiet tonight.";
 
-            return response()->json(['reply' => $reply]);
+            return response()->json([
+                'reply' => $reply
+            ]);
 
-        } catch (\Exception $e) {
-            Log::error('Exception: ' . $e->getMessage());
-            return response()->json(['reply' => "Meow: Something went wrong! "]);
+        } catch (\Throwable $e) {
+
+            Log::error("WizardCat error: " . $e->getMessage());
+
+            return response()->json([
+                'reply' => "Meow… something mysterious went wrong."
+            ]);
         }
     }
 }
