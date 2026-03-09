@@ -2,7 +2,7 @@ FROM php:8.2-cli
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libpng-dev libonig-dev libxml2-dev libcurl4-openssl-dev \
+    git curl zip unzip libpng-dev libonig-dev libxml2-dev libcurl4-openssl-dev default-mysql-client \
     && docker-php-ext-install pdo_mysql mbstring xml curl ctype \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -23,14 +23,10 @@ RUN composer dump-autoload --optimize
 
 # Set permissions
 RUN chmod -R 775 storage bootstrap/cache
+RUN chmod +x docker-entrypoint.sh
 
 # Expose port
 EXPOSE 8080
 
-# Start: migrate then serve (env vars only available at runtime)
-CMD php artisan config:clear && \
-    php artisan migrate --force && \
-    php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan view:cache && \
-    php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
+# Start: wait for DB, migrate, then serve
+CMD ["bash", "docker-entrypoint.sh"]
